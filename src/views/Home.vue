@@ -43,23 +43,6 @@ export default {
       }
     }
   },
-  async created() {
-    // POST request using fetch with async/await
-    const requestOptions = {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        userName: '',
-        highScore: 0,
-        userId: 0
-      })
-    };
-    const response = await fetch('http://127.0.0.1:3000/api/users/', requestOptions);
-    const data = await response.json();
-    this.userName = data.userName;
-  },
   mounted(){
     fetch('http://127.0.0.1:3000/api/users/')
         .then((response) => {
@@ -77,17 +60,18 @@ export default {
 
     async postData(url='') {
         await fetch(url, {
-        method: 'POST', // *GET, POST, PUT, DELETE, etc.
-        mode: 'cors', // no-cors, *cors, same-origin
-        cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
-        credentials: 'same-origin', // include, *same-origin, omit
-        headers: {
+          method: 'POST', // *GET, POST, PUT, DELETE, etc.
+          mode: 'cors', // no-cors, *cors, same-origin
+          cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+          credentials: 'same-origin', // include, *same-origin, omit
+          headers: {
             'Content-Type': 'application/json'
-        },
-        redirect: 'follow', // manual, *follow, error
-        referrerPolicy: 'no-referrer', // no-referrer, *client
-        body: JSON.stringify({userName:this.formData.userName, highScore:0}) // body data type must match "Content-Type" header
-      });
+          },
+          redirect: 'follow', // manual, *follow, error
+          referrerPolicy: 'no-referrer', // no-referrer, *client
+          body: JSON.stringify({userName: this.formData.userName, highScore: 0}) // body data type must match "Content-Type" header
+        });
+
       //return response.json();
       location.reload();
     }
@@ -99,6 +83,10 @@ export default {
 </script>
 
 <style scoped>
+li {
+  list-style: none;
+}
+
 .btn-primary-user {
   position: absolute;
   top: 0;
