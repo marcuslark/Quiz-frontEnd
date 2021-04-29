@@ -4,7 +4,7 @@
       <button v-if="userState === 'default'" class="btn btn-primary-user" @click="changeUserState('edit')">Users</button>
       <button v-else class="btn btn-red-user" @click="changeUserState('default')">Back</button>
 
-      <vue-dropdown></vue-dropdown>
+      <vue-dropdown :config="config"></vue-dropdown>
 
       <div v-if="userState === 'edit'">
         <form method="POST" id="formUser" class="new-user" @submit.prevent="postData('http://127.0.0.1:3000/api/users')">
@@ -35,6 +35,21 @@ import VueDropdown from 'vue-dynamic-dropdown'
   name: "LogIn",
   data() {
   return {
+    config: {
+      options: [
+        {
+          value: "TEST"
+        },
+        {
+          value: "option 2"
+        },
+        {
+          value: "option 3"
+        },
+      ],
+      prefix: "The",
+      backgroundColor: "green"
+    },
   userState: 'default',
   newUserName: '',
   user: [],
