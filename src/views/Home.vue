@@ -22,7 +22,7 @@
     <HelloWorld msg="Welcome to Our City Quiz App!"/>
     <ul>
       <h2>Top 3 Highest Scores</h2>
-      <li v-for="user in user" v-bind:key="user.userId">{{ user.highScore }} {{ user.userName }}</li>
+      <li v-for="user in user" v-bind:key="user.userId" @load="topThreeHighScores">{{ user.highScore }} {{ user.userName }}</li>
     </ul>
   </div>
 </template>
@@ -56,6 +56,10 @@ export default {
   methods: {
     changeUserState: function (newUserState) {
       this.userState = newUserState
+    },
+
+    topThreeHighScores: function () {
+
     },
 
     async postData(url='') {
