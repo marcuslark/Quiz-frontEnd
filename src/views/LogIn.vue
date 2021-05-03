@@ -1,10 +1,12 @@
 <template>
-  <div class="login">
+  <div id="login">
     <header>
       <button v-if="userState === 'default'" class="btn btn-primary-user" @click="changeUserState('edit')">Users</button>
       <button v-else class="btn btn-red-user" @click="changeUserState('default')">Back</button>
 
-      <vue-dropdown :config="config"></vue-dropdown>
+      <div class="center">
+        <vue-dropdown :config="config"></vue-dropdown>
+      </div>
 
       <div v-if="userState === 'edit'">
         <form method="POST" id="formUser" class="new-user" @submit.prevent="postData('http://127.0.0.1:3000/api/users')">
@@ -21,7 +23,6 @@
       </div>
     </header>
     <ul>
-      <h2>Users</h2>
       <li v-for="user in user" v-bind:key="user.userId">{{ user.highScore }} {{ user.userName }}</li>
     </ul>
   </div>
@@ -47,6 +48,7 @@ import VueDropdown from 'vue-dynamic-dropdown'
           value: "option 3"
         },
       ],
+      width: 300,
       prefix: "The",
       backgroundColor: "green"
     },
@@ -130,5 +132,13 @@ li {
   /*position: absolute;
   top: 0;
   right: 60px;*/
+}
+</style>
+
+<style>
+.center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 </style>
