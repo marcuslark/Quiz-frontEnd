@@ -6,7 +6,13 @@
       <button v-else class="btn btn-red-user" @click="changeUserState('default')">Back</button>
 
       <div id='container' style="margin:50px auto 0; width:250px;">
-        <ejs-dropdownlist id='dropdownlist' :dataSource='usersData' placeholder='Select a game'></ejs-dropdownlist>
+
+        <select v-model="activePlayer"><option v-for="user in user" v-bind:value="user.userName" v-bind:key="user.userId">
+          {{ user.userName }}
+        </option></select>
+        <br>
+        <span>Player: {{ activePlayer }}</span>
+
       </div>
 
       <div v-if="userState === 'edit'">
@@ -24,9 +30,9 @@
         </form>
       </div>
     </header>
-    <ul>
+<!--    <ul>
       <li v-for="user in user" v-bind:key="user.userId">{{ user.highScore }} {{ user.userName }}</li>
-    </ul>
+    </ul>-->
 
   </div>
 
@@ -35,22 +41,18 @@
 
 <script>
 
-import Vue from 'vue';
-import {DropDownListPlugin} from "@syncfusion/ej2-vue-dropdowns";
 
-Vue.use(DropDownListPlugin);
-
-export default Vue.extend({
+export default {
   name: "LogIn",
-  data: function () {
+  data() {
     return {
-      usersData: ['Marcus', 'Joakim', 'Hans'],
       userState: 'default',
       newUserName: '',
       user: [],
       formData: {
         userName: ''
-      }
+      },
+      activePlayer: ''
     }
   },
   mounted() {
@@ -87,10 +89,14 @@ export default Vue.extend({
     }
   },
   components: {}
-});
+};
 </script>
 
 <style scoped>
+.container {
+  color: black;
+}
+
 li {
   list-style: none;
 }
@@ -124,18 +130,5 @@ li {
   top: 0;
   right: 60px;*/
 }
-</style>
 
-<style>
-.center {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-</style>
-
-<style>
-@import "../../node_modules/@syncfusion/ej2-base/styles/material.css";
-@import "../../node_modules/@syncfusion/ej2-inputs/styles/material.css";
-@import "../../node_modules/@syncfusion/ej2-vue-dropdowns/styles/material.css";
 </style>
