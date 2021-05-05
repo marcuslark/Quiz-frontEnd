@@ -1,0 +1,124 @@
+{
+  "questions": [
+    {
+      "id": "1",
+      "question": "If you are in the capital of Belarus, which city are you visiting?",
+      "choices": ["Minsk", "Mogilev", "Chennai"],
+      "rightAnswer": "Minsk"
+    },
+    {
+      "id": "2",
+      "question": "What is the largest country in the world?",
+      "choices": ["Russia", "Canada", "United States"],
+      "rightAnswer": "Russia"
+    },
+    {
+      "id": "3",
+      "question": "In which city would you be if you were visiting the Taj Mahal?",
+      "choices": ["Agra", "Dehli","London"],
+      "rightAnswer": "Agra"
+    },
+    {
+      "id": "4",
+      "question": "What colour is the spot in the middle of the Japanese flag?",
+      "choices": ["Red", "Orange","Blue"],
+      "rightAnswer": "Red"
+    },
+    {
+      "id": "5",
+      "question": "What is the smallest country in the world?",
+      "choices": ["Vatican city", "Monaco","Malta"],
+      "rightAnswer": "Vatican city"
+    },
+    {
+      "id": "6",
+      "question": "Machu Picchu can be found in which country?",
+      "choices": ["Peru", "Rome","Slovenia"],
+      "rightAnswer": "Peru"
+    },
+    {
+      "id": "7",
+      "question": "Which city would you visit to see Gaudi's fantastical architecture?",
+      "choices": ["Barcelona", "Rome","Paris"],
+      "rightAnswer": "Barcelona"
+    },
+    {
+      "id": "8",
+      "question": "In which European city would you find the Spanish Steps?",
+      "choices": ["Rome", "Barcelona","Milano"],
+      "rightAnswer": "Rome"
+    },
+    {
+      "id": "9",
+      "question": "What is the capital of Malta?",
+      "choices": ["Valetta", "Mdina","Verona"],
+      "rightAnswer": "Valetta"
+    },
+    {
+      "id": "10",
+      "question": "What green vegetable shares its name with a European capital city?",
+      "choices": ["Brussels", "Habanero","Cayenne"],
+      "rightAnswer": "Brussels"
+    },
+    {
+      "id": "11",
+      "question": "What is the capital city of Switzerland?",
+      "choices": ["Bern", "Berlin","Zurich"],
+      "rightAnswer": "Bern"
+    },
+    {
+      "id": "12",
+      "question": "The Tigris runs through which capital city?",
+      "choices": ["Baghdad", "Ankara","Abuja"],
+      "rightAnswer": "Baghdad"
+    },
+    {
+      "id": "13",
+      "question": "Cairo is the capital of which country?",
+      "choices": ["Egypt", "Iraq","Japan"],
+      "rightAnswer": "Egypt"
+    },
+    {
+      "id": "14",
+      "question": "In which UK city would you find the river Clyde?",
+      "choices": ["Glasgow", "Cambridge","London"],
+      "rightAnswer": "Glasgow"
+    },
+    {
+      "id": "15",
+      "question": "Tbilisi is the capital of which country?",
+      "choices": ["Georgia", "Gabon","Guatemala"],
+      "rightAnswer": "Georgia"
+    },
+    {
+      "id": "16",
+      "question": "What country has the most islands in the world?",
+      "choices": ["Sweden", "Norway","Philippines"],
+      "rightAnswer": "Sweden"
+    },
+    {
+      "id": "17",
+      "question": "What’s the capital of Canada?",
+      "choices": ["Ottawa", "Toronto","Ontario"],
+      "rightAnswer": "Ottawa"
+    },
+    {
+      "id": "18",
+      "question": "In what city was the first skyscraper built?",
+      "choices": ["Chicago", "London","Durban"],
+      "rightAnswer": "Chicago"
+    },
+    {
+      "id": "19",
+      "question": "What city is well known for its Carnival?",
+      "choices": ["Rio de Janeiro", "Colombo","Kiev"],
+      "rightAnswer": "Rio de Janeiro"
+    },
+    {
+      "id": "20",
+      "question": "Which capital city was founded by a group of 87 Chinese tin miners? ",
+      "choices": ["Kuala Lumpur", "Athens","Copenhagen"],
+      "rightAnswer": "Kuala Lumpur"
+    }
+  ]
+}

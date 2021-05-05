@@ -21,7 +21,7 @@
 export default {
   name: "quiz",
   mounted() {
-    fetch('data/data.json')
+    fetch('data/questions.json')
     .then((response) => {
       return response.json()
     })
