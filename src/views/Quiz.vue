@@ -27,8 +27,9 @@ export default {
     })
     .then((data) => {
       console.log(data.questions);
+      this.question = data.questions[0]
       this.questions = data.questions;
-      console.log('this.questions = ' + this.questions);
+      console.log('this.questions = ' + this.questions[0].question);
     })
   },
   data() {
@@ -36,7 +37,7 @@ export default {
       questions: [],
       score: 0,
       questionIndex: 0,
-      question: 'test',
+      question: '',
       answer: "",
     }
   },
