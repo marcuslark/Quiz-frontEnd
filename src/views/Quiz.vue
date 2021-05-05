@@ -26,10 +26,6 @@ export default {
       return response.json()
     })
     .then((data) => {
-      console.log(data.questions);
-      this.question = data.questions[0]
-      this.questions = data.questions;
-      console.log('this.questions = ' + this.questions[0].question);
 
         let currentIndex = data.questions.length, temporaryValue, randomIndex;
 
@@ -45,6 +41,11 @@ export default {
           data.questions[currentIndex] = data.questions[randomIndex];
           data.questions[randomIndex] = temporaryValue;
         }
+
+      console.log(data.questions);
+      this.question = data.questions[0]
+      this.questions = data.questions;
+      console.log('this.questions = ' + this.questions[0].question);
 
     })
   },
