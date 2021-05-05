@@ -53,7 +53,7 @@ export default {
     return {
       questions: [],
       score: 0,
-      questionIndex: 0,
+      questionIndex: 10,
       question: '',
       answer: "",
     }
@@ -71,7 +71,7 @@ export default {
     restart() {
       this.question = this.questions[0];
       this.answer = "";
-      this.questionIndex = 0;
+      this.questionIndex = 10;
       this.score = 0;
     },
   }
