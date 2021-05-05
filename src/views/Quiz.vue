@@ -30,6 +30,22 @@ export default {
       this.question = data.questions[0]
       this.questions = data.questions;
       console.log('this.questions = ' + this.questions[0].question);
+
+        let currentIndex = data.questions.length, temporaryValue, randomIndex;
+
+        // While there remain elements to shuffle...
+        while (0 !== currentIndex) {
+
+          // Pick a remaining element...
+          randomIndex = Math.floor(Math.random() * currentIndex);
+          currentIndex -= 1;
+
+          // And swap it with the current element.
+          temporaryValue = data.questions[currentIndex];
+          data.questions[currentIndex] = data.questions[randomIndex];
+          data.questions[randomIndex] = temporaryValue;
+        }
+
     })
   },
   data() {
