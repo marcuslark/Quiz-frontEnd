@@ -29,6 +29,11 @@ const routes = [
     component: () => import('../views/Quiz.vue')
   },
   {
+    path: '/jsonquiz',
+    name: 'JsonQuiz',
+    component: () => import('../views/JsonQuiz.vue')
+  },
+  {
     path: '/highscore',
     name: 'Highscore',
     component: () => import('../views/Highscore.vue')

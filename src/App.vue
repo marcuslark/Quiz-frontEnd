@@ -4,7 +4,8 @@
       <router-link to="/">Home</router-link> |
       <router-link to="/login">Log In</router-link> |
       <router-link to="/quiz">Quiz</router-link> |
-      <router-link to="/highscore">High scores</router-link>
+      <router-link to="/highscore">High scores</router-link> |
+      <router-link to="/jsonquiz">Json Quiz</router-link>
     </div>
     <router-view/>
   </div>
