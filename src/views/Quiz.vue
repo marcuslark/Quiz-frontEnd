@@ -16,51 +16,89 @@
     <p>score: {{ score }}</p>
   </div>
 </template>
+
 <script>
-const questions = [
-  {
-    question: "What is American football called in England?",
-    choices: ["American football", "football", "Handball"],
-    rightAnswer: "American football",
-  },
-  {
-    question: "What is the largest country in the world?",
-    choices: ["Russia", "Canada", "United States"],
-    rightAnswer: "Russia",
-  },
-  {
-    question: "What is the 100th digit of Pi?",
-    choices: [9, 4, 7],
-    rightAnswer: 9,
-  },
-];
 export default {
-  name: "Quiz",
+  name: "quiz",
+  mounted() {
+    fetch('data/data.json')
+    .then((response) => {
+      return response.json()
+    })
+    .then((data) => {
+      console.log(data.questions);
+      this.questions = data.questions;
+      console.log('this.questions = ' + this.questions);
+    })
+  },
   data() {
     return {
-      questions,
+      questions: [],
       score: 0,
       questionIndex: 0,
-      question: questions[0],
+      question: 'test',
       answer: "",
-    };
+    }
   },
   methods: {
     submit() {
       const { answer, question, questions, questionIndex } = this;
       if (answer === question.rightAnswer) {
         this.score++;
-      }      if (questionIndex < questions.length) {
+      }      if (questionIndex < this.questions.length) {
         this.questionIndex++;
         this.question = { ...questions[this.questionIndex] };
       }
     },
     restart() {
-      this.question = questions[0];
+      this.question = this.questions[0];
       this.answer = "";
       this.questionIndex = 0;
       this.score = 0;
     },
-  },
-};
+  }
+  
+}
 </script>
+
+<style scoped>
+.question-data {
+  display: flex;
+  align-items: center;
+  margin-top: 20px;
+  margin-left: 20px;
+  border-bottom: 2px solid #ccc;
+  padding: 20px;
+}
+
+.quest-icon {
+  flex-grow: 1;
+}
+
+.question-stats {
+  flex-grow: 8;
+  text-align: left;
+  padding-left: 20px;
+}
+
+.question-stats .location {
+  font-size: 30px;
+}
+
+.question-temp {
+  flex-grow: 1;
+  font-size: 35px;
+}
+
+img {
+  width: 70px;
+}
+
+button {
+  padding:10px;
+  background-color: #1aa832;
+  color: white;
+  border: 1px solid #ccc;
+}
+
+</style>-->
