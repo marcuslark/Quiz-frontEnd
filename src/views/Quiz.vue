@@ -14,10 +14,12 @@
       <div v-else>
         <button type="button" @click="restart">restart</button>
         <button type="button" @click="addHighScore">Add to High Score To local storage</button>
-        <button type="button" @click="putData">Add to High Score DB</button>
+        <button type="button" @click="putData('http://127.0.0.1:3000/api/users')">Add to High Score DB</button>
       </div>
       <button type="button" @click="submit">check</button>
     </form>
+
+
     <p>score: {{ score }}</p>
   </div>
 </template>
