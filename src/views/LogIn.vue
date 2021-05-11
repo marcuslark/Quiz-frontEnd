@@ -6,15 +6,6 @@
       <button v-else class="btn btn-red-user" @click="changeUserState('default')">Back</button>
 
       <div id='container' style="margin:50px auto 0; width:250px;">
-
-
-<!--        <select v-model="dbHighScoreActivePlayer">
-          <option v-for="user in user" v-bind:value="user.highScore" v-bind:key="user.userId">
-             {{ user.highScore }}
-          </option>
-        </select>-->
-
-
         <select v-model="activePlayer" @click="setToLocalStorage">
           <option v-for="user in user" v-bind:value="user.userName + ', ' + user.highScore" v-bind:key="user.userId">
             {{ user.userName }}
@@ -40,10 +31,6 @@
         </form>
       </div>
     </header>
-    <!--    <ul>
-          <li v-for="user in user" v-bind:key="user.userId">{{ user.highScore }} {{ user.userName }}</li>
-        </ul>-->
-
   </div>
 
 
@@ -54,9 +41,6 @@
 
 export default {
   name: "LogIn",
-  /* props: [
-       'activePlayer'
-   ],*/
   data() {
     return {
       userState: 'default',

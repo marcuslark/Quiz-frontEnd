@@ -25,7 +25,6 @@
 </template>
 
 <script>
-/*import LogIn from "@/views/LogIn";*/
 
 
 export default {

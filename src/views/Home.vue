@@ -1,21 +1,6 @@
 <template>
   <div class="home">
     <header>
-      <button v-if="userState === 'default'" class="btn btn-primary-user" @click="changeUserState('edit')">Users</button>
-      <button v-else class="btn btn-red-user" @click="changeUserState('default')">Back</button>
-      <div v-if="userState === 'edit'">
-        <form method="POST" id="formUser" class="new-user" @submit.prevent="postData('http://127.0.0.1:3000/api/users')">
-        <div>
-        <input type="text" id="userName" name="userName" v-model="formData.userName">
-          <input
-            type="submit"
-            class="btn btn-primary"
-            value="Add"
-            placeholder="New User"
-            >
-       </div>
-         </form>
-          </div>
     </header>
 
     <img class="home-img" alt="City Quiz" src="../assets/city-quiz.jpg">
@@ -38,9 +23,6 @@ export default {
       userState: 'default',
       newUserName: '',
       user: [],
-      formData: {
-        userName: ''
-      }
     }
   },
   mounted(){
@@ -54,31 +36,9 @@ export default {
         });
   },
   methods: {
-    changeUserState: function (newUserState) {
-      this.userState = newUserState
-    },
-
     topThreeHighScores: function () {
 
     },
-
-    async postData(url='') {
-        await fetch(url, {
-          method: 'POST', // *GET, POST, PUT, DELETE, etc.
-          mode: 'cors', // no-cors, *cors, same-origin
-          cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
-          credentials: 'same-origin', // include, *same-origin, omit
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          redirect: 'follow', // manual, *follow, error
-          referrerPolicy: 'no-referrer', // no-referrer, *client
-          body: JSON.stringify({userName: this.formData.userName, highScore: 0}) // body data type must match "Content-Type" header
-        });
-
-      //return response.json();
-      location.reload();
-    }
   },
   components: {
     HelloWorld
