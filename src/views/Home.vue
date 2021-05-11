@@ -7,7 +7,7 @@
     <HelloWorld msg="Welcome to Our City Quiz App!"/>
     <ul>
       <h2>Top 3 Highest Scores</h2>
-      <li v-for="user in user" v-bind:key="user.userId" @load="topThreeHighScores">{{ user.highScore }} {{ user.userName }}</li>
+      <li v-for="user in topThree" v-bind:key="user.userId" @load="topThreeHighScores">{{ user.highScore }} {{ user.userName }}</li>
     </ul>
   </div>
 </template>
@@ -22,7 +22,7 @@ export default {
     return {
       userState: 'default',
       newUserName: '',
-      user: [],
+      topThree: [2]
     }
   },
   mounted(){
@@ -32,7 +32,12 @@ export default {
         })
         .then((data) => {
           console.log(data.user);
-          this.user = data.user;
+          this.user = data.user
+
+          let i;
+          for (i = 0; i < 3; i++) {
+            this.topThree.push(data.user[i]);
+          }
         });
   },
   methods: {
