@@ -13,8 +13,8 @@
       </div>
       <div v-else>
         <button type="button" @click="restart">restart</button>
-        <button type="button" @click="addHighScore">Add to High Score To local storage</button>
-        <button type="button" @click="putData('http://127.0.0.1:3000/api/users')">Add to High Score DB</button>
+        <button type="button" @click="putData('http://127.0.0.1:3000/api/users')">addHighScore, putData</button>
+<!--        <button type="button" @click="putData('http://127.0.0.1:3000/api/users')">Add to High Score DB</button>-->
       </div>
       <button type="button" @click="submit">check</button>
     </form>
@@ -86,11 +86,15 @@ export default {
       this.questionIndex = 10;
       this.score = 0;
     },
-    addHighScore() {
+   /* addHighScore() {
       localStorage.setItem('highScore', this.score)
       console.log('LOCAL STORAGE : ' + localStorage.getItem('highScore'))
-    },
+    },*/
     async putData(url = '') {
+
+      localStorage.setItem('highScore', this.score)
+      console.log('LOCAL STORAGE : ' + localStorage.getItem('highScore'))
+
       await fetch(url, {
         method: 'PUT', // *GET, POST, PUT, DELETE, etc.
         mode: 'cors', // no-cors, *cors, same-origin

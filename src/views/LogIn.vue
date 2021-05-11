@@ -7,8 +7,16 @@
 
       <div id='container' style="margin:50px auto 0; width:250px;">
 
+
+<!--        <select v-model="dbHighScoreActivePlayer">
+          <option v-for="user in user" v-bind:value="user.highScore" v-bind:key="user.userId">
+             {{ user.highScore }}
+          </option>
+        </select>-->
+
+
         <select v-model="activePlayer" @click="setToLocalStorage">
-          <option v-for="user in user" v-bind:value="user.userName" v-bind:key="user.userId">
+          <option v-for="user in user" v-bind:value="user.userName + ', ' + user.highScore" v-bind:key="user.userId">
             {{ user.userName }}
           </option>
         </select>
@@ -57,7 +65,9 @@ export default {
       formData: {
         userName: ''
       },
-      activePlayer: ''
+      activePlayer: '',
+      dbHighScoreActivePlayer: '',
+      highScore: ''
     }
   },
   mounted() {
@@ -94,8 +104,11 @@ export default {
     },
 
     setToLocalStorage() {
+      localStorage.setItem('dbHighScoreActivePlayer', this.dbHighScoreActivePlayer)
+      console.log('LOCAL STORAGE dbHighScoreActivePlayer: ' + localStorage.getItem('dbHighScoreActivePlayer'))
+
       localStorage.setItem('activePlayer', this.activePlayer)
-      console.log('LOCAL STORAGE : ' + localStorage.getItem('activePlayer'))
+      console.log('LOCAL STORAGE activePlayer: ' + localStorage.getItem('activePlayer'))
     }
   },
   components: {}
