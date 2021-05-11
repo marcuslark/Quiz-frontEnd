@@ -68,6 +68,12 @@
   color: #fff;
 }
 
-
+.activePlayer {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  color: #E3342F;
+  font-weight: 900;
+}
 
 </style>

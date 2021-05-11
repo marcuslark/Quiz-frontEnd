@@ -7,9 +7,20 @@
 
       <div id='container' style="margin:50px auto 0; width:250px;">
 
-        <select v-model="activePlayer"><option v-for="user in user" v-bind:value="user.userName" v-bind:key="user.userId">
-          {{ user.userName }}
-        </option></select>
+        <select v-model="activePlayer">
+          <option v-for="user in user" v-bind:value="user.userName" v-bind:key="user.userId">
+            {{ user.userName }}
+          </option>
+        </select>
+        <br>
+        <span>Player: {{ activePlayer }}</span>
+        <br>
+
+        <select v-model="activePlayer" @click="setToLocalStorage">
+          <option v-for="user in user" v-bind:value="user.userName" v-bind:key="user.userId">
+            {{ user.userName }}
+          </option>
+        </select>
         <br>
         <span>Player: {{ activePlayer }}</span>
 
@@ -30,9 +41,9 @@
         </form>
       </div>
     </header>
-<!--    <ul>
-      <li v-for="user in user" v-bind:key="user.userId">{{ user.highScore }} {{ user.userName }}</li>
-    </ul>-->
+    <!--    <ul>
+          <li v-for="user in user" v-bind:key="user.userId">{{ user.highScore }} {{ user.userName }}</li>
+        </ul>-->
 
   </div>
 
@@ -44,6 +55,9 @@
 
 export default {
   name: "LogIn",
+  /* props: [
+       'activePlayer'
+   ],*/
   data() {
     return {
       userState: 'default',
@@ -86,6 +100,11 @@ export default {
 
       //return response.json();
       location.reload();
+    },
+
+    setToLocalStorage() {
+      localStorage.setItem('activePlayer', this.activePlayer)
+      console.log('LOCAL STORAGE : ' + localStorage.getItem('activePlayer'))
     }
   },
   components: {}

@@ -1,5 +1,8 @@
 <template>
   <div>
+    <div class="activePlayer">
+      Player: {{ activePlayer }}
+    </div>
     <form>
       <div v-if="questionIndex < questions.length">
         <label>{{ question.question }}</label>
@@ -10,6 +13,8 @@
       </div>
       <div v-else>
         <button type="button" @click="restart">restart</button>
+        <button type="button" @click="addHighScore">Add to High Score To local storage</button>
+        <button type="button" @click="putData">Add to High Score DB</button>
       </div>
       <button type="button" @click="submit">check</button>
     </form>
@@ -18,8 +23,12 @@
 </template>
 
 <script>
+/*import LogIn from "@/views/LogIn";*/
+
+
 export default {
   name: "quiz",
+
   mounted() {
     fetch('data/questions.json')
     .then((response) => {
@@ -56,6 +65,7 @@ export default {
       questionIndex: 10,
       question: '',
       answer: "",
+      activePlayer: localStorage.getItem('activePlayer')
     }
   },
   methods: {
@@ -74,6 +84,27 @@ export default {
       this.questionIndex = 10;
       this.score = 0;
     },
+    addHighScore() {
+      localStorage.setItem('highScore', this.score)
+      console.log('LOCAL STORAGE : ' + localStorage.getItem('highScore'))
+    },
+    async putData(url = '') {
+      await fetch(url, {
+        method: 'PUT', // *GET, POST, PUT, DELETE, etc.
+        mode: 'cors', // no-cors, *cors, same-origin
+        cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+        credentials: 'same-origin', // include, *same-origin, omit
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        redirect: 'follow', // manual, *follow, error
+        referrerPolicy: 'no-referrer', // no-referrer, *client
+        body: JSON.stringify({userName: localStorage.getItem('activePlayer'), highScore: localStorage.getItem('highScore')}) // body data type must match "Content-Type" header
+      });
+
+      //return response.json();
+      location.reload();
+    }
   }
   
 }
@@ -118,5 +149,7 @@ button {
   color: white;
   border: 1px solid #ccc;
 }
+
+
 
 </style>-->
