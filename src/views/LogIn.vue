@@ -50,8 +50,7 @@ export default {
         userName: ''
       },
       activePlayer: '',
-      dbHighScoreActivePlayer: '',
-      highScore: ''
+      dbHighScoreActivePlayer: ''
     }
   },
   mounted() {
@@ -88,6 +87,11 @@ export default {
     },
 
     setToLocalStorage() {
+      let tempInput = this.activePlayer.split(',')
+      this.activePlayer = tempInput[0]
+      this.dbHighScoreActivePlayer = tempInput[1]
+
+
       localStorage.setItem('dbHighScoreActivePlayer', this.dbHighScoreActivePlayer)
       console.log('LOCAL STORAGE dbHighScoreActivePlayer: ' + localStorage.getItem('dbHighScoreActivePlayer'))
 

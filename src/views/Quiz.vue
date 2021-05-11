@@ -13,8 +13,7 @@
       </div>
       <div v-else>
         <button type="button" @click="restart">restart</button>
-        <button type="button" @click="putData('http://127.0.0.1:3000/api/users')">addHighScore, putData</button>
-<!--        <button type="button" @click="putData('http://127.0.0.1:3000/api/users')">Add to High Score DB</button>-->
+        <button type="button" @click="addHighScore()">addHighScore</button>
       </div>
       <button type="button" @click="submit">check</button>
     </form>
@@ -66,7 +65,8 @@ export default {
       questionIndex: 10,
       question: '',
       answer: "",
-      activePlayer: localStorage.getItem('activePlayer')
+      activePlayer: localStorage.getItem('activePlayer'),
+      dbHighScoreActivePlayer: localStorage.getItem('dbHighScoreActivePlayer')
     }
   },
   methods: {
@@ -85,10 +85,12 @@ export default {
       this.questionIndex = 10;
       this.score = 0;
     },
-   /* addHighScore() {
-      localStorage.setItem('highScore', this.score)
-      console.log('LOCAL STORAGE : ' + localStorage.getItem('highScore'))
-    },*/
+    addHighScore() {
+      if (this.score > this.dbHighScoreActivePlayer) {
+        this.putData('http://127.0.0.1:3000/api/users')
+        console.log('this.putData() triggered')
+      }
+    },
     async putData(url = '') {
 
       localStorage.setItem('highScore', this.score)
@@ -107,6 +109,7 @@ export default {
         body: JSON.stringify({userName: localStorage.getItem('activePlayer'), highScore: localStorage.getItem('highScore')}) // body data type must match "Content-Type" header
       });
 
+      localStorage.clear();
       //return response.json();
       location.reload();
     }
