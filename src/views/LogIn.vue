@@ -7,15 +7,6 @@
 
       <div id='container' style="margin:50px auto 0; width:250px;">
 
-        <select v-model="activePlayer">
-          <option v-for="user in user" v-bind:value="user.userName" v-bind:key="user.userId">
-            {{ user.userName }}
-          </option>
-        </select>
-        <br>
-        <span>Player: {{ activePlayer }}</span>
-        <br>
-
         <select v-model="activePlayer" @click="setToLocalStorage">
           <option v-for="user in user" v-bind:value="user.userName" v-bind:key="user.userId">
             {{ user.userName }}
