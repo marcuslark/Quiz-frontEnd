@@ -35,7 +35,6 @@
 
 <script>
 
-
 export default {
   name: "quiz",
 
@@ -76,7 +75,7 @@ export default {
       question: '',
       answer: "",
       activePlayer: localStorage.getItem('activePlayer'),
-      dbHighScoreActivePlayer: localStorage.getItem('dbHighScoreActivePlayer')
+      dbHighScoreActivePlayer: localStorage.getItem('dbHighScoreActivePlayer'),
       correct: ""
     }
   },
@@ -91,6 +90,7 @@ export default {
       else {
         this.correct = false;
         console.log("fel svar")
+
       }
       if (questionIndex < this.questions.length) {
         this.questionIndex++;
@@ -130,13 +130,10 @@ export default {
       localStorage.clear();
       //return response.json();
       location.reload();
-    showAnswers(id){
-      console.log(id)
-
-    }
   }
-
+ }
 }
+
 </script>
 
 <style scoped>
