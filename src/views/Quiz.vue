@@ -21,13 +21,12 @@
 
     <p>score: {{ score }}</p>
 
-    <p>{{correct}}</p>
-    <div v-if="correct === true" class="rightAnswer">
+    <div v-if="correctBool === true" class="rightAnswer">
     <p>{{"Right Answer!"}}</p>
     </div>
-    <div v-else-if="correct === false" class="wrongAnswer">
-    <p> {{"Wrong Answer!"}}</p>
-      {{question.rightAnswer}}
+    <div v-else-if="correctBool === false" class="wrongAnswer">
+    <p> {{"Wrong Answer!"}} </p>
+      {{correct}}
     </div>
 
   </div>
@@ -44,9 +43,8 @@ export default {
       return response.json()
     })
     .then((data) => {
-
         let currentIndex = data.questions.length, temporaryValue, randomIndex;
-
+        
         // While there remain elements to shuffle...
         while (0 !== currentIndex) {
 
@@ -76,7 +74,8 @@ export default {
       answer: "",
       activePlayer: localStorage.getItem('activePlayer'),
       dbHighScoreActivePlayer: localStorage.getItem('dbHighScoreActivePlayer'),
-      correct: ""
+      correct: "",
+      correctBool: ''
     }
   },
   methods: {
@@ -84,11 +83,15 @@ export default {
       const { answer, question, questions, questionIndex } = this;
       if (answer === question.rightAnswer) {
         this.score++;
-        this.correct = true;
+        this.correctBool = true;
+        this.correct = this.question.rightAnswer;
+        console.log(question.rightAnswer)
         console.log("Rätt svar");
       }
       else {
-        this.correct = false;
+        this.correctBool = false;
+        this.correct = this.question.rightAnswer;
+        console.log(question.rightAnswer)
         console.log("fel svar")
 
       }
