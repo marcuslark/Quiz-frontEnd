@@ -5,6 +5,8 @@
     </div>
     <form>
       <div v-if="questionIndex < questions.length">
+        <label>questionIndex:{{ questionIndex }}</label>
+        <br>
         <label>{{ question.question }}</label>
         <div v-for="c of question.choices" :key="c">
           <input type="radio" name="choice" v-model="answer" :value="c" />
@@ -27,7 +29,7 @@
     </div>
     <div v-else-if="correct === false" class="wrongAnswer">
     <p> {{"Wrong Answer!"}}</p>
-      {{question.rightAnswer}}
+       Rätt svar:{{ showAnswer }}
     </div>
 
   </div>
@@ -46,7 +48,7 @@ export default {
     .then((data) => {
 
         let currentIndex = data.questions.length, temporaryValue, randomIndex;
-
+        /*this.answerChoices = []*/
         // While there remain elements to shuffle...
         while (0 !== currentIndex) {
 
@@ -58,6 +60,11 @@ export default {
           temporaryValue = data.questions[currentIndex];
           data.questions[currentIndex] = data.questions[randomIndex];
           data.questions[randomIndex] = temporaryValue;
+          console.log('************')
+          console.log(data.questions[currentIndex].choices)
+          console.log('************')
+          this.answerChoices = data.questions[currentIndex].choices.sort(Math.random)
+          console.log(this.answerChoices)
         }
 
       console.log(data.questions);
@@ -76,7 +83,9 @@ export default {
       answer: "",
       activePlayer: localStorage.getItem('activePlayer'),
       dbHighScoreActivePlayer: localStorage.getItem('dbHighScoreActivePlayer'),
-      correct: ""
+      correct: "",
+      showAnswer: '',
+      answerChoices:[]
     }
   },
   methods: {
@@ -90,11 +99,13 @@ export default {
       else {
         this.correct = false;
         console.log("fel svar")
+        this.showAnswer = this.questions[this.questionIndex].rightAnswer
 
       }
       if (questionIndex < this.questions.length) {
         this.questionIndex++;
         this.question = { ...questions[this.questionIndex] };
+        console.log('**')
       }
     },
     restart() {
