@@ -14,6 +14,16 @@
       <button type="button" @click="submit">check</button>
     </form>
     <p>score: {{ score }}</p>
+
+    <p>{{correct}}</p>
+    <div v-if="correct === true" class="rightAnswer">
+    <p>{{"Right Answer!"}}</p>
+    </div>
+    <div v-else-if="correct === false" class="wrongAnswer">
+    <p> {{"Wrong Answer!"}}</p>
+      {{question.rightAnswer}}
+    </div>
+
   </div>
 </template>
 
@@ -56,6 +66,7 @@ export default {
       questionIndex: 10,
       question: '',
       answer: "",
+      correct: ""
     }
   },
   methods: {
@@ -63,7 +74,14 @@ export default {
       const { answer, question, questions, questionIndex } = this;
       if (answer === question.rightAnswer) {
         this.score++;
-      }      if (questionIndex < this.questions.length) {
+        this.correct = true;
+        console.log("Rätt svar");
+      }
+      else {
+        this.correct = false;
+        console.log("fel svar")
+      }
+      if (questionIndex < this.questions.length) {
         this.questionIndex++;
         this.question = { ...questions[this.questionIndex] };
       }
@@ -74,8 +92,12 @@ export default {
       this.questionIndex = 10;
       this.score = 0;
     },
+    showAnswers(id){
+      console.log(id)
+
+    }
   }
-  
+
 }
 </script>
 
@@ -118,5 +140,10 @@ button {
   color: white;
   border: 1px solid #ccc;
 }
-
+.rightAnswer{
+  color: #1aa832;
+}
+.wrongAnswer{
+  color: #E3342F;
+}
 </style>-->
