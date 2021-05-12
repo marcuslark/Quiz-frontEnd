@@ -20,6 +20,16 @@
 
 
     <p>score: {{ score }}</p>
+
+    <p>{{correct}}</p>
+    <div v-if="correct === true" class="rightAnswer">
+    <p>{{"Right Answer!"}}</p>
+    </div>
+    <div v-else-if="correct === false" class="wrongAnswer">
+    <p> {{"Wrong Answer!"}}</p>
+      {{question.rightAnswer}}
+    </div>
+
   </div>
 </template>
 
@@ -67,6 +77,7 @@ export default {
       answer: "",
       activePlayer: localStorage.getItem('activePlayer'),
       dbHighScoreActivePlayer: localStorage.getItem('dbHighScoreActivePlayer')
+      correct: ""
     }
   },
   methods: {
@@ -74,7 +85,14 @@ export default {
       const { answer, question, questions, questionIndex } = this;
       if (answer === question.rightAnswer) {
         this.score++;
-      }      if (questionIndex < this.questions.length) {
+        this.correct = true;
+        console.log("Rätt svar");
+      }
+      else {
+        this.correct = false;
+        console.log("fel svar")
+      }
+      if (questionIndex < this.questions.length) {
         this.questionIndex++;
         this.question = { ...questions[this.questionIndex] };
       }
@@ -112,9 +130,12 @@ export default {
       localStorage.clear();
       //return response.json();
       location.reload();
+    showAnswers(id){
+      console.log(id)
+
     }
   }
-  
+
 }
 </script>
 
@@ -158,6 +179,10 @@ button {
   border: 1px solid #ccc;
 }
 
-
-
+.rightAnswer{
+  color: #1aa832;
+}
+.wrongAnswer{
+  color: #E3342F;
+}
 </style>-->
