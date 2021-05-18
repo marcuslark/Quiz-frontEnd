@@ -56,6 +56,19 @@ export default {
           temporaryValue = data.questions[currentIndex];
           data.questions[currentIndex] = data.questions[randomIndex];
           data.questions[randomIndex] = temporaryValue;
+
+          this.answerChoices = data.questions[currentIndex].choices
+          console.log('NOT Shuffled = ' + this.answerChoices)
+
+          let newPos;
+          let temp;
+          for (let i = this.answerChoices.length -1; i > 0; i--) {
+            newPos = Math.floor(Math.random() * (i + 1));
+            temp = this.answerChoices[i];
+            this.answerChoices[i] = this.answerChoices[newPos];
+            this.answerChoices[newPos] = temp;
+          }
+          console.log('Shuffled =  ' + this.answerChoices)
         }
 
       console.log(data.questions);
@@ -75,7 +88,8 @@ export default {
       activePlayer: localStorage.getItem('activePlayer'),
       dbHighScoreActivePlayer: localStorage.getItem('dbHighScoreActivePlayer'),
       correct: "",
-      correctBool: ''
+      correctBool: '',
+      answerChoices: []
     }
   },
   methods: {
@@ -111,6 +125,17 @@ export default {
         this.putData('http://127.0.0.1:3000/api/users')
         console.log('this.putData() triggered')
       }
+    },
+    arrayShuffle(arr) {
+      let newPos;
+      let temp;
+      for (let i = arr.length -1; i > 0; i--) {
+        newPos = Math.floor(Math.random() * (i + 1));
+        temp = arr[i];
+        arr[i] = arr[newPos];
+        arr[newPos] = temp;
+      }
+      return arr;
     },
     async putData(url = '') {
 
