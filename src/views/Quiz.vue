@@ -5,7 +5,10 @@
     </div>
     <form>
       <div v-if="questionIndex < questions.length">
+        <img v-bind:src="question.img" class="img">
+        <p></p>
         <label>{{ question.question }}</label>
+
         <div v-for="c of question.choices" :key="c">
           <input type="radio" name="choice" v-model="answer" :value="c" />
           {{ c }}
@@ -141,15 +144,23 @@ export default {
   font-size: 35px;
 }
 
-img {
-  width: 70px;
-}
+/*img {*/
+/*  width: 70px;*/
+/*}*/
 
 button {
   padding:10px;
   background-color: #1aa832;
   color: white;
   border: 1px solid #ccc;
+}
+
+.img {
+/*  max-width: 100%;*/
+/*  height: auto;*/
+  height: 335px;
+  width: 500px;
+  position: center;
 }
 
 
