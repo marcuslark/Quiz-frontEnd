@@ -4,7 +4,6 @@
     </header>
 
     <img class="home-img" alt="City Quiz" src="../assets/city-quiz.jpg">
-    <HelloWorld msg="Welcome to Our City Quiz App!"/>
     <ul>
       <h2>Top 3 Highest Scores</h2>
       <li v-for="user in topThree" v-bind:key="user.userId" @load="topThreeHighScores">{{ user.highScore }} {{ user.userName }}</li>
@@ -14,7 +13,7 @@
 
 <script>
 // @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
+
 
 export default {
   name: 'Home',
@@ -46,7 +45,6 @@ export default {
     },
   },
   components: {
-    HelloWorld
   }
 }
 </script>
