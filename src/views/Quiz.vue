@@ -158,6 +158,7 @@ export default {
       });
 
       localStorage.clear();
+      //indexedDB.clear();
       //return response.json();
       location.reload();
   }

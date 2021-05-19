@@ -5,7 +5,7 @@
       <div :class="{ 'signup-form': !showLoginForm }" class="col2">
         <form v-if="showLoginForm" @submit.prevent>
           <h1>Welcome Back</h1>
-          <div class="col2">
+          <div>
             <label for="email1">Email</label>
             <input v-model.trim="loginForm.email" type="text" placeholder="you@email.com" id="email1" />
           </div>
