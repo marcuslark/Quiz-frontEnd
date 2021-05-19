@@ -1,6 +1,7 @@
 <template>
   <div id="login">
-    <header>
+    <PasswordReset v-if="showPasswordReset" @close="togglePasswordReset()"></PasswordReset>
+    <section>
 
       <div :class="{ 'signup-form': !showLoginForm }" class="col2">
         <form v-if="showLoginForm" @submit.prevent>
@@ -16,7 +17,7 @@
           <button @click="login()" class="button">Log In</button>
 
           <div class="extras">
-            <a>Forgot Password </a>
+            <a @click="togglePasswordReset()">Forgot Password</a>
             <a @click="toggleForm()">Create an Account</a>
           </div>
         </form>
@@ -81,14 +82,14 @@
 
       </div>
       -->
-    </header>
+    </section>
   </div>
 
 
 </template>
 
 <script>
-
+import PasswordReset from '@/components/PasswordReset'
 
 export default {
   name: "LogIn",
@@ -113,7 +114,8 @@ export default {
         email: '',
         password: ''
       },
-      showLoginForm: true
+      showLoginForm: true,
+      showPasswordReset: false
     }
   },
   mounted() {
@@ -177,9 +179,14 @@ export default {
     },
     toggleForm() {
       this.showLoginForm = !this.showLoginForm
+    },
+    togglePasswordReset() {
+      this.showPasswordReset = !this.showPasswordReset
     }
   },
-  components: {}
+  components: {
+    PasswordReset
+  }
 };
 
 </script>
