@@ -2,10 +2,10 @@
   <div id="login">
     <header>
 
-      <div>
-        <form @submit.prevent>
+      <div :class="{ 'signup-form': !showLoginForm }" class="col2">
+        <form v-if="showLoginForm" @submit.prevent>
           <h1>Welcome Back</h1>
-          <div>
+          <div class="col2">
             <label for="email1">Email</label>
             <input v-model.trim="loginForm.email" type="text" placeholder="you@email.com" id="email1" />
           </div>
@@ -13,38 +13,40 @@
             <label for="password1">Password</label>
             <input v-model.trim="loginForm.password" type="password" placeholder="******" id="password1" />
           </div>
-          <button class="button">Log In</button>
-          <div class="extras">
-            <a>Forgot Password</a>
-            <a>Create an Account</a>
-          </div>
           <button @click="login()" class="button">Log In</button>
+
+          <div class="extras">
+            <a>Forgot Password </a>
+            <a @click="toggleForm()">Create an Account</a>
+          </div>
+        </form>
+
+
+        <form v-else @submit.prevent>
+          <h1>Get Started</h1>
+          <div>
+            <label for="name">Name</label>
+            <input v-model.trim="signupForm.name" type="text" placeholder="Savvy Apps" id="name" />
+          </div>
+          <div>
+            <label for="title">Title</label>
+            <input v-model.trim="signupForm.title" type="text" placeholder="Company" id="title" />
+          </div>
+          <div>
+            <label for="email2">Email</label>
+            <input v-model.trim="signupForm.email" type="text" placeholder="you@email.com" id="email2" />
+          </div>
+          <div>
+            <label for="password2">Password</label>
+            <input v-model.trim="signupForm.password" type="password" placeholder="min 6 characters" id="password2" />
+          </div>
+          <button @click="signup()" class="button">Sign Up</button>
+          <div class="extras">
+            <a @click="toggleForm()">Back to Log In</a>
+          </div>
         </form>
       </div>
 
-      <form @submit.prevent>
-        <h1>Get Started</h1>
-        <div>
-          <label for="name">Name</label>
-          <input v-model.trim="signupForm.name" type="text" placeholder="Savvy Apps" id="name" />
-        </div>
-        <div>
-          <label for="title">Title</label>
-          <input v-model.trim="signupForm.title" type="text" placeholder="Company" id="title" />
-        </div>
-        <div>
-          <label for="email2">Email</label>
-          <input v-model.trim="signupForm.email" type="text" placeholder="you@email.com" id="email2" />
-        </div>
-        <div>
-          <label for="password2">Password</label>
-          <input v-model.trim="signupForm.password" type="password" placeholder="min 6 characters" id="password2" />
-        </div>
-        <button @click="signup()" class="button">Sign Up</button>
-        <div class="extras">
-          <a>Back to Log In</a>
-        </div>
-      </form>
 
       <button v-if="userState === 'default'" class="btn btn-primary-user" @click="changeUserState('edit')">Users
       </button>
@@ -107,7 +109,8 @@ export default {
         title: '',
         email: '',
         password: ''
-      }
+      },
+      showLoginForm: true
     }
   },
   mounted() {
@@ -168,6 +171,9 @@ export default {
 
       localStorage.setItem('activePlayer', this.activePlayer)
       console.log('LOCAL STORAGE activePlayer: ' + localStorage.getItem('activePlayer'))
+    },
+    toggleForm() {
+      this.showLoginForm = !this.showLoginForm
     }
   },
   components: {}
@@ -175,43 +181,3 @@ export default {
 
 </script>
 
-<style scoped>
-.container {
-  color: black;
-}
-
-li {
-  list-style: none;
-}
-
-.btn-primary-user {
-  /*position: absolute;
-  top: 0;
-  right: 0;*/
-  background: #6CB2EB;
-}
-
-.btn-primary-user:hover {
-  background: #3490DC;
-  color: #fff;
-}
-
-.btn-red-user {
-  /*position: absolute;
-  top: 0;
-  right: 0;*/
-  background: #EF5753;
-}
-
-.btn-red-user:hover {
-  background: #E3342F;
-  color: #fff;
-}
-
-.new-user {
-  /*position: absolute;
-  top: 0;
-  right: 60px;*/
-}
-
-</style>

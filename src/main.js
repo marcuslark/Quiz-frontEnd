@@ -3,7 +3,7 @@ import App from './App.vue'
 import router from './router'
 import { auth } from './firebase'
 import store from './store'
-//import './assets/scss/app.scss'
+import './assets/scss/app.scss'
 
 Vue.config.productionTip = false
 
