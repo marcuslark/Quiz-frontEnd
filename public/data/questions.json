@@ -38,7 +38,7 @@
     {
       "id": "6",
       "question": "Machu Picchu can be found in which country?",
-      "choices": ["Peru", "Rome","Slovenia"],
+      "choices": ["Peru", "Italy","Slovenia"],
       "rightAnswer": "Peru",
       "img": "https://cdn.getyourguide.com/img/tour/5d186c3f36cbf.jpeg/99.jpg"
     },

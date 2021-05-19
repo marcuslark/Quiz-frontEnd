@@ -10,6 +10,7 @@
   "dependencies": {
     "@syncfusion/ej2-vue-dropdowns": "^19.1.59",
     "core-js": "^3.6.5",
+    "firebase": "^8.6.1",
     "vue": "^2.6.11",
     "vue-router": "^3.2.0"
   },
