@@ -48,6 +48,7 @@
       </div>
 
 
+<!--
       <button v-if="userState === 'default'" class="btn btn-primary-user" @click="changeUserState('edit')">Users
       </button>
       <button v-else class="btn btn-red-user" @click="changeUserState('default')">Back</button>
@@ -77,7 +78,9 @@
           </div>
         </form>
 
+
       </div>
+      -->
     </header>
   </div>
 
