@@ -16,10 +16,12 @@
       <div v-else>
         <button type="button" @click="restart">restart</button>
         <button type="button" @click="addHighScore()">addHighScore</button>
+        <button type="button" @click="updateProfile()">updateProfile</button>
       </div>
       <button type="button" @click="submit">check</button>
     </form>
 
+    <button type="button" @click="writeUserData">writeUserData</button>
 
     <p>score: {{ score }}</p>
 
@@ -35,6 +37,8 @@
 </template>
 
 <script>
+import firebase from "firebase";
+import * as fb from "@/firebase";
 
 export default {
   name: "quiz",
@@ -116,18 +120,39 @@ export default {
         this.question = { ...questions[this.questionIndex] };
       }
     },
+    writeUserData(userId, name, email, highScore) {
+      firebase.database().ref('users/'
+          + userId).set({
+        username: name,
+        email: email,
+        highScore : highScore
+      });
+    },
     restart() {
       this.question = this.questions[0];
       this.answer = "";
       this.questionIndex = 10;
       this.score = 0;
     },
-    addHighScore() {
+    updateProfile() {
+      /*console.log(this.$store.fb.auth.currentUser.highScore)*/
+      console.log('score: ' + this.score)
+      console.log('userId: ' + fb.auth.currentUser.uid)
+      /*console.log('highScore: ' + fb.auth.currentUser.uid.user.highScore)*/
+
+        console.log('updateProfile körs')
+        this.$store.dispatch('updateProfile', {
+          /*highScore: this.score*/
+        })
+
+
+    },
+    /*addHighScore() {
       if (this.score > this.dbHighScoreActivePlayer) {
         this.putData('http://127.0.0.1:3000/api/users')
         console.log('this.putData() triggered')
       }
-    },
+    },*/
     arrayShuffle(arr) {
       let newPos;
       let temp;
@@ -139,7 +164,7 @@ export default {
       }
       return arr;
     },
-    async putData(url = '') {
+    /*async putData(url = '') {
 
       localStorage.setItem('highScore', this.score)
       console.log('LOCAL STORAGE : ' + localStorage.getItem('highScore'))
@@ -161,7 +186,7 @@ export default {
       //indexedDB.clear();
       //return response.json();
       location.reload();
-  }
+  }*/
  }
 }
 

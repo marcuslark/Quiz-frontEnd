@@ -4,10 +4,10 @@
     </header>
 
     <img class="home-img" alt="City Quiz" src="../assets/city-quiz.jpg">
-    <ul>
+<!--    <ul>
       <h2>Top 3 Highest Scores</h2>
       <li v-for="user in topThree" v-bind:key="user.userId" @load="topThreeHighScores">{{ user.highScore }} {{ user.userName }}</li>
-    </ul>
+    </ul>-->
   </div>
 </template>
 
@@ -24,7 +24,7 @@ export default {
       topThree: [2]
     }
   },
-  mounted(){
+ /* mounted(){
     fetch('http://127.0.0.1:3000/api/users/')
         .then((response) => {
           return response.json();
@@ -38,7 +38,7 @@ export default {
             this.topThree.push(data.user[i]);
           }
         });
-  },
+  },*/
   methods: {
     topThreeHighScores: function () {
 

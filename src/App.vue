@@ -4,11 +4,22 @@
       <router-link to="/">Home</router-link> |
       <router-link to="/login">Log In</router-link> |
       <router-link to="/quiz">Quiz</router-link> |
-      <router-link to="/highscore">High scores</router-link>
+      <router-link to="/highscore">High scores</router-link> |
+      <a @click="logout()">Log Out</a>
     </div>
     <router-view/>
   </div>
 </template>
+
+<script>
+export default {
+  methods: {
+    logout() {
+      this.$store.dispatch('logout')
+    }
+  }
+}
+</script>
 
 <style>
 #app {

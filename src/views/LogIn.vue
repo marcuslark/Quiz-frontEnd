@@ -112,13 +112,14 @@ export default {
         name: '',
         title: '',
         email: '',
-        password: ''
+        password: '',
+        highScore: 0
       },
       showLoginForm: true,
       showPasswordReset: false
     }
   },
-  mounted() {
+/*  mounted() {
     fetch('http://127.0.0.1:3000/api/users/')
         .then((response) => {
           return response.json();
@@ -127,7 +128,8 @@ export default {
           console.log(data.user);
           this.user = data.user;
         });
-  },
+  }*/
+
   methods: {
     changeUserState: function (newUserState) {
       this.userState = newUserState
@@ -143,11 +145,12 @@ export default {
         email: this.signupForm.email,
         password: this.signupForm.password,
         name: this.signupForm.name,
-        title: this.signupForm.title
+        title: this.signupForm.title,
+        highScore: 0
       })
     },
 
-    async postData(url = '') {
+    /*async postData(url = '') {
       await fetch(url, {
         method: 'POST', // *GET, POST, PUT, DELETE, etc.
         mode: 'cors', // no-cors, *cors, same-origin
@@ -176,13 +179,13 @@ export default {
 
       localStorage.setItem('activePlayer', this.activePlayer)
       console.log('LOCAL STORAGE activePlayer: ' + localStorage.getItem('activePlayer'))
-    },
+    },*/
     toggleForm() {
       this.showLoginForm = !this.showLoginForm
     },
     togglePasswordReset() {
       this.showPasswordReset = !this.showPasswordReset
-    }
+    },
   },
   components: {
     PasswordReset

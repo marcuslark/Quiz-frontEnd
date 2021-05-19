@@ -50,7 +50,8 @@ const store = new Vuex.Store({
             // create user object in userCollections
             await fb.usersCollection.doc(user.uid).set({
                 name: form.name,
-                title: form.title
+                title: form.title,
+                highScore: 0
             })
 
             // fetch user profile and set in state
@@ -76,7 +77,8 @@ const store = new Vuex.Store({
             commit('setUserProfile', {})
 
             // redirect to login view
-            router.push('/login')
+            /*router.push('/login')*/
+            location.reload()
         },
         // eslint-disable-next-line no-unused-vars
         async createPost({ state, commit }, post) {
@@ -111,14 +113,17 @@ const store = new Vuex.Store({
             })
         },
         async updateProfile({ dispatch }, user) {
+            console.log('updateProfile körs i index 1')
             const userId = fb.auth.currentUser.uid
+            console.log('updateProfile körs i index 2')
             // update user object
             // eslint-disable-next-line no-unused-vars
             const userRef = await fb.usersCollection.doc(userId).update({
                 name: user.name,
-                title: user.title
+                title: user.title,
+                highScore: user.highScore
             })
-
+            console.log('updateProfile körs i index 3')
             dispatch('fetchUserProfile', { uid: userId })
 
             // update all posts by user

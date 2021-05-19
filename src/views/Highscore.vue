@@ -2,9 +2,9 @@
   <div>
     <h1>High score</h1>
 
-    <ul>
+<!--    <ul>
       <li v-for="user in user" v-bind:key="user.userId">{{ user.highScore }} {{ user.userName }}</li>
-    </ul>
+    </ul>-->
   </div>
 </template>
 
@@ -16,7 +16,7 @@ export default {
       user: []
     }
   },
-  mounted() {
+  /*mounted() {
     fetch('http://127.0.0.1:3000/api/users/')
         .then((response) => {
           return response.json();
@@ -25,7 +25,7 @@ export default {
           console.log(data.user);
           this.user = data.user;
         });
-  }
+  }*/
 }
 </script>
 
