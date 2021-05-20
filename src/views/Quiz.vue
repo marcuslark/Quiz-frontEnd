@@ -39,6 +39,7 @@
 <script>
 import firebase from "firebase";
 import * as fb from "@/firebase";
+/*import * as userProfile from "core-js";*/
 
 export default {
   name: "quiz",
@@ -138,14 +139,20 @@ export default {
       /*console.log(this.$store.fb.auth.currentUser.highScore)*/
       console.log('score: ' + this.score)
       console.log('userId: ' + fb.auth.currentUser.uid)
-      /*console.log('highScore: ' + fb.auth.currentUser.uid.user.highScore)*/
 
         console.log('updateProfile körs')
+/*
+        console.log('userProfile: ' + userProfile.data().highScore)
+*/
         this.$store.dispatch('updateProfile', {
-          /*highScore: this.score*/
+          highScore: this.score !== '' ? this.score : this.userProfile.score
         })
 
+        /*this.score = ''*/
 
+      setTimeout(() => {
+        this.showSuccess = false
+      }, 2000)
     },
     /*addHighScore() {
       if (this.score > this.dbHighScoreActivePlayer) {

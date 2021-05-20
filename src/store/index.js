@@ -19,6 +19,7 @@ fb.postsCollection.orderBy('createdOn', 'desc').onSnapshot(snapshot => {
     store.commit('setPosts', postsArray)
 })
 
+let userProfile = [];
 const store = new Vuex.Store({
     state: {
         userProfile: {},
@@ -59,7 +60,11 @@ const store = new Vuex.Store({
         },
         async fetchUserProfile({ commit }, user) {
             // fetch user profile
-            const userProfile = await fb.usersCollection.doc(user.uid).get()
+            userProfile = await fb.usersCollection.doc(user.uid).get()
+
+            console.log('********fetchUserProfile**********')
+            console.log(userProfile.data().highScore)
+            console.log('*********fetchUserProfile*********')
 
             // set user profile in state
             commit('setUserProfile', userProfile.data())
@@ -113,20 +118,24 @@ const store = new Vuex.Store({
             })
         },
         async updateProfile({ dispatch }, user) {
-            console.log('updateProfile körs i index 1')
-            const userId = fb.auth.currentUser.uid
-            console.log('updateProfile körs i index 2')
-            // update user object
-            // eslint-disable-next-line no-unused-vars
-            const userRef = await fb.usersCollection.doc(userId).update({
-                name: user.name,
-                title: user.title,
-                highScore: user.highScore
-            })
-            console.log('updateProfile körs i index 3')
-            dispatch('fetchUserProfile', { uid: userId })
 
-            // update all posts by user
+            let dbHighScore = userProfile.data().highScore;
+            let score = user.highScore;
+
+            if (score > dbHighScore) {
+                const userId = fb.auth.currentUser.uid
+
+                // update user object
+                // eslint-disable-next-line no-unused-vars
+                const userRef = await fb.usersCollection.doc(userId).update({
+                    highScore: user.highScore
+                })
+
+                dispatch('fetchUserProfile', { uid: userId })
+            }
+
+
+            /*// update all posts by user
             const postDocs = await fb.postsCollection.where('userId', '==', userId).get()
             postDocs.forEach(doc => {
                 fb.postsCollection.doc(doc.id).update({
@@ -140,7 +149,7 @@ const store = new Vuex.Store({
                 fb.commentsCollection.doc(doc.id).update({
                     userName: user.name
                 })
-            })
+            })*/
         }
     }
 })
