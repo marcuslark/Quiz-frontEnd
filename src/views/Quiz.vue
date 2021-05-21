@@ -65,7 +65,7 @@ export default {
           data.questions[randomIndex] = temporaryValue;
 
           this.answerChoices = data.questions[currentIndex].choices
-          console.log('NOT Shuffled = ' + this.answerChoices)
+          /*console.log('NOT Shuffled = ' + this.answerChoices)*/
 
           let newPos;
           let temp;
@@ -75,13 +75,13 @@ export default {
             this.answerChoices[i] = this.answerChoices[newPos];
             this.answerChoices[newPos] = temp;
           }
-          console.log('Shuffled =  ' + this.answerChoices)
+          /*console.log('Shuffled =  ' + this.answerChoices)*/
         }
 
-      console.log(data.questions);
+      /*console.log(data.questions);*/
       this.question = data.questions[0]
       this.questions = data.questions;
-      console.log('this.questions = ' + this.questions[0].question);
+      /*console.log('this.questions = ' + this.questions[0].question);*/
 
     })
   },

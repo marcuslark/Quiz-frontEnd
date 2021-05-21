@@ -19,11 +19,43 @@ fb.postsCollection.orderBy('createdOn', 'desc').onSnapshot(snapshot => {
     store.commit('setPosts', postsArray)
 })
 
+
+
+
+
+
+/*fb.usersCollection.orderBy('highScore', 'desc').onSnapshot(snapshot => {
+    let highScoreArray = []
+
+    snapshot.forEach(doc => {
+        let highScore = doc.data()
+        highScore.id = doc.id
+
+        highScoreArray.push(highScore)
+    })
+
+    console.log('********highScoreArray**********')
+    console.log(highScoreArray)
+
+    for (let i = 0; i < highScoreArray.length; i++) {
+        console.log('i for loop, name: ' + highScoreArray[i].name + ', highScore: ' + highScoreArray[i].highScore)
+    }
+    console.log('*********highScoreArray*********')
+
+    store.commit('setHighScores', highScoreArray)
+})*/
+
+
+
+
+/*let highScoreArray = []*/
 let userProfile = [];
+/*let allHighScores = [];*/
 const store = new Vuex.Store({
     state: {
         userProfile: {},
-        posts: []
+        posts: [],
+        highScores: []
     },
     mutations: {
         setUserProfile(state, val) {
@@ -34,6 +66,9 @@ const store = new Vuex.Store({
         },
         setPosts(state, val) {
             state.posts = val
+        },
+        setHighScores(state, val) {
+            state.highScores = val
         }
     },
     actions: {
@@ -62,9 +97,9 @@ const store = new Vuex.Store({
             // fetch user profile
             userProfile = await fb.usersCollection.doc(user.uid).get()
 
-            console.log('********fetchUserProfile**********')
-            console.log(userProfile.data().highScore)
-            console.log('*********fetchUserProfile*********')
+            /*console.log('********fetchUserProfile**********')
+            console.log(userProfile.data().name + ' highScore from db: ' + userProfile.data().highScore)
+            console.log('*********fetchUserProfile*********')*/
 
             // set user profile in state
             commit('setUserProfile', userProfile.data())
@@ -74,6 +109,75 @@ const store = new Vuex.Store({
                 router.push('/')
             }
         },
+
+
+        async fetchAllHighScores() {
+            console.log('fetchAllHighScores i store/index.js körs')
+
+            localStorage.clear()
+
+            /*var dbRef = fb.usersCollection.doc()  database().ref("users");
+
+            dbRef.orderByChild("highScore").on("child_added", snap => {
+                console.log(snap.val());
+            });*/
+
+
+            /*fb.usersCollection.orderBy('highScore', 'desc').onSnapshot(snapshot => {*/
+            fb.usersCollection.where("highScore", ">", 0)
+                .get()
+                        .then((querySnapshot) => {
+                            querySnapshot.forEach((doc) => {
+                                /*console.log(doc.id, " => ", doc.data());*/
+                                console.log(JSON.stringify(doc.data()));
+
+                            });
+                        })
+                        .catch((error) => {
+                            console.log("Failed to get doc", error);
+
+
+
+
+
+
+
+                /*let highScoreArray = []*/
+                /*let highScores = [];
+
+                snapshot.forEach(doc => {
+                    let highScore = doc.data()
+                    highScore.id = doc.id
+
+                    console.log('******')
+                    console.log(doc.data())
+                    console.log('******')
+                    highScores.push(highScore)
+                    console.log(highScore.name)
+                })
+
+                console.log('********fetchAllHighScores**********')
+                /!*console.log(highScores)*!/
+
+                /!*for (let i = 0; i < highScores.length; i++) {
+                    console.log(i + ' i for loop, name: ' + highScores[i].name + ', highScore: ' + highScores[i].highScore + ' highScores.length: ' + highScores.length)
+                    localStorage.setItem(
+                        'HighScores', localStorage.getItem('HighScores') + ',' + highScores[i].name + ' ' + highScores[i].highScore
+                    )
+                }*!/
+                console.log('*********fetchAllHighScores*********')
+
+                store.commit('setHighScores', highScores)*/
+
+            })
+
+        },
+
+
+
+
+
+
         async logout({ commit }) {
             // log user out
             await fb.auth.signOut()
