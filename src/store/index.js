@@ -123,51 +123,29 @@ const store = new Vuex.Store({
             });*/
 
 
-            /*fb.usersCollection.orderBy('highScore', 'desc').onSnapshot(snapshot => {*/
-            fb.usersCollection.where("highScore", ">", 0)
-                .get()
-                        .then((querySnapshot) => {
-                            querySnapshot.forEach((doc) => {
-                                /*console.log(doc.id, " => ", doc.data());*/
-                                console.log(JSON.stringify(doc.data()));
-
-                            });
-                        })
-                        .catch((error) => {
-                            console.log("Failed to get doc", error);
-
-
-
-
-
-
-
+            fb.usersCollection.orderBy('highScore', 'desc').onSnapshot(snapshot => {
                 /*let highScoreArray = []*/
-                /*let highScores = [];
+                let highScores = [];
 
                 snapshot.forEach(doc => {
                     let highScore = doc.data()
                     highScore.id = doc.id
 
-                    console.log('******')
-                    console.log(doc.data())
-                    console.log('******')
                     highScores.push(highScore)
-                    console.log(highScore.name)
                 })
 
                 console.log('********fetchAllHighScores**********')
-                /!*console.log(highScores)*!/
+                /*console.log(highScores)*/
 
-                /!*for (let i = 0; i < highScores.length; i++) {
+                for (let i = 0; i < highScores.length; i++) {
                     console.log(i + ' i for loop, name: ' + highScores[i].name + ', highScore: ' + highScores[i].highScore + ' highScores.length: ' + highScores.length)
                     localStorage.setItem(
                         'HighScores', localStorage.getItem('HighScores') + ',' + highScores[i].name + ' ' + highScores[i].highScore
                     )
-                }*!/
+                }
                 console.log('*********fetchAllHighScores*********')
 
-                store.commit('setHighScores', highScores)*/
+                store.commit('setHighScores', highScores)
 
             })
 
