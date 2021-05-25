@@ -113,7 +113,7 @@ const store = new Vuex.Store({
 
         async fetchAllHighScores() {
             console.log('fetchAllHighScores i store/index.js körs')
-
+            /*fb. getInstance().clearLocalCache()*/
             localStorage.clear()
 
             /*var dbRef = fb.usersCollection.doc()  database().ref("users");
@@ -122,12 +122,17 @@ const store = new Vuex.Store({
                 console.log(snap.val());
             });*/
 
+            fb.usersCollection.orderBy('highScore', 'desc')
+                .get()
+                .then((querySnapshot) => {
 
-            fb.usersCollection.orderBy('highScore', 'desc').onSnapshot(snapshot => {
+
+
+           /* fb.usersCollection.orderBy('highScore', 'desc').onSnapshot(snapshot => {*/
                 /*let highScoreArray = []*/
                 let highScores = [];
 
-                snapshot.forEach(doc => {
+                querySnapshot.forEach(doc => {
                     let highScore = doc.data()
                     highScore.id = doc.id
 
