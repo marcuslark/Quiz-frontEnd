@@ -1,10 +1,9 @@
 <template>
   <div>
-    <h1>High score</h1>
-
-    <p>{{ test }}</p>
-    <p>{{ user }}</p>
-    <p>{{ users }}</p>
+    <h1>High score Top 10</h1>
+    <ol>
+      <li v-for="highScore in highScores" v-bind:key="highScore"> {{ highScore }} </li>
+    </ol>
 <!--    <ul>
       <li v-for="user in user" v-bind:key="user.userId">{{ user.highScore }} {{ user.userName }}</li>
     </ul>-->
@@ -19,20 +18,28 @@ export default {
   name: 'Highscore',
   data() {
     return {
-      user: [],
-      test: 'test',
-      users: []
+      highScores: [],
+      tempArray: []
     }
   },
-  mounted() {
+  async mounted() {
     console.log('i Highscore.vue i mounted')
 
-    this.$store.dispatch('fetchAllHighScores', {
+    await this.$store.dispatch('fetchAllHighScores', {
       users: this.users !== '' ? this.users : this.highScores
     })
-    /*createStore.highScore*/
     console.log('*******mounted********')
-    console.log(localStorage.getItem('Test'))
+
+    let localStorageList = localStorage.getItem('HighScores')
+    console.log(localStorageList)
+
+    this.tempArray = localStorageList.split(',', 11)
+    console.log(this.tempArray)
+    this.highScores = this.tempArray.splice(1)
+
+    /*this.activePlayer = tempInput[0]
+    this.highScores = tempInput[1]*/
+
     console.log('*******mounted********')
   }
   /*mounted() {

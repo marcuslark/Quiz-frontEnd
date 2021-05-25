@@ -122,7 +122,7 @@ const store = new Vuex.Store({
                 console.log(snap.val());
             });*/
 
-            fb.usersCollection.orderBy('highScore', 'desc')
+            await fb.usersCollection.orderBy('highScore', 'desc')
                 .get()
                 .then((querySnapshot) => {
 
