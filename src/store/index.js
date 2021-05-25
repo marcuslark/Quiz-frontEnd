@@ -69,6 +69,7 @@ const store = new Vuex.Store({
             dispatch('fetchUserProfile', user)
         },
         async fetchUserProfile({ commit }, user) {
+            localStorage.clear()
             // fetch user profile
             userProfile = await fb.usersCollection.doc(user.uid).get()
 
