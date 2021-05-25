@@ -1,8 +1,8 @@
 <template>
   <div>
-    <div class="activePlayer">
-      Player: {{ activePlayer }}
-    </div>
+<!--    <div class="activePlayer">-->
+<!--      Player: {{ activePlayer }}-->
+<!--    </div>-->
     <form>
       <div v-if="questionIndex < questions.length">
         <img v-bind:src="question.img" class="img">
@@ -21,8 +21,6 @@
       <button type="button" @click="submit">check</button>
     </form>
 
-<!--    <button type="button" @click="writeUserData">writeUserData</button>-->
-
     <p>score: {{ score }}</p>
 
     <div v-if="correctBool === true" class="rightAnswer">
@@ -37,15 +35,23 @@
 </template>
 
 <script>
-/*import firebase from "firebase";*/
 import * as fb from "@/firebase";
-/*import * as userProfile from "core-js";*/
+let jsonFile = '';
 
 export default {
   name: "quiz",
 
   mounted() {
-    fetch('data/questions.json')
+    this.activeLevel = localStorage.getItem('ActivePlayerLevel')
+    if (this.activeLevel < 2) {
+      jsonFile = 'data/questions.json'
+      console.log("Lätt "  + this.activeLevel)
+    }
+    else{
+      jsonFile = 'data/svar.json'
+      console.log("Svår "  + this.activeLevel)
+    }
+    fetch(jsonFile)
     .then((response) => {
       return response.json()
     })
@@ -65,7 +71,6 @@ export default {
           data.questions[randomIndex] = temporaryValue;
 
           this.answerChoices = data.questions[currentIndex].choices
-          /*console.log('NOT Shuffled = ' + this.answerChoices)*/
 
           let newPos;
           let temp;
@@ -75,13 +80,10 @@ export default {
             this.answerChoices[i] = this.answerChoices[newPos];
             this.answerChoices[newPos] = temp;
           }
-          /*console.log('Shuffled =  ' + this.answerChoices)*/
         }
 
-      /*console.log(data.questions);*/
       this.question = data.questions[0]
       this.questions = data.questions;
-      /*console.log('this.questions = ' + this.questions[0].question);*/
 
     })
   },
@@ -92,11 +94,12 @@ export default {
       questionIndex: 10,
       question: '',
       answer: "",
-      activePlayer: localStorage.getItem('activePlayer'),
-      dbHighScoreActivePlayer: localStorage.getItem('dbHighScoreActivePlayer'),
+      //activePlayer: localStorage.getItem('activePlayer'),
+      //dbHighScoreActivePlayer: localStorage.getItem('dbHighScoreActivePlayer'),
       correct: "",
       correctBool: '',
-      answerChoices: []
+      answerChoices: [],
+      activeLevel: 0
     }
   },
   methods: {
@@ -121,14 +124,6 @@ export default {
         this.question = { ...questions[this.questionIndex] };
       }
     },
-    /*writeUserData(userId, name, email, highScore) {
-      firebase.database().ref('users/'
-          + userId).set({
-        username: name,
-        email: email,
-        highScore : highScore
-      });
-    },*/
     restart() {
       this.question = this.questions[0];
       this.answer = "";
@@ -141,25 +136,16 @@ export default {
       console.log('userId: ' + fb.auth.currentUser.uid)
 
         console.log('updateProfile körs')
-/*
-        console.log('userProfile: ' + userProfile.data().highScore)
-*/
+
         this.$store.dispatch('updateProfile', {
           highScore: this.score !== '' ? this.score : this.userProfile.score
         })
-
-        /*this.score = ''*/
 
       setTimeout(() => {
         this.showSuccess = false
       }, 2000)
     },
-    /*addHighScore() {
-      if (this.score > this.dbHighScoreActivePlayer) {
-        this.putData('http://127.0.0.1:3000/api/users')
-        console.log('this.putData() triggered')
-      }
-    },*/
+
     arrayShuffle(arr) {
       let newPos;
       let temp;
@@ -171,29 +157,6 @@ export default {
       }
       return arr;
     },
-    /*async putData(url = '') {
-
-      localStorage.setItem('highScore', this.score)
-      console.log('LOCAL STORAGE : ' + localStorage.getItem('highScore'))
-
-      await fetch(url, {
-        method: 'PUT', // *GET, POST, PUT, DELETE, etc.
-        mode: 'cors', // no-cors, *cors, same-origin
-        cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
-        credentials: 'same-origin', // include, *same-origin, omit
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        redirect: 'follow', // manual, *follow, error
-        referrerPolicy: 'no-referrer', // no-referrer, *client
-        body: JSON.stringify({userName: localStorage.getItem('activePlayer'), highScore: localStorage.getItem('highScore')}) // body data type must match "Content-Type" header
-      });
-
-      localStorage.clear();
-      //indexedDB.clear();
-      //return response.json();
-      location.reload();
-  }*/
  }
 }
 

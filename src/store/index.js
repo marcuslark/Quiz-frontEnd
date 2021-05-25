@@ -5,6 +5,9 @@ import router from '../router/index'
 
 Vue.use(Vuex)
 
+let dbUserLevel;
+let userProfile = [];
+
 // realtime firebase
 fb.postsCollection.orderBy('createdOn', 'desc').onSnapshot(snapshot => {
     let postsArray = []
@@ -19,38 +22,6 @@ fb.postsCollection.orderBy('createdOn', 'desc').onSnapshot(snapshot => {
     store.commit('setPosts', postsArray)
 })
 
-
-
-
-
-
-/*fb.usersCollection.orderBy('highScore', 'desc').onSnapshot(snapshot => {
-    let highScoreArray = []
-
-    snapshot.forEach(doc => {
-        let highScore = doc.data()
-        highScore.id = doc.id
-
-        highScoreArray.push(highScore)
-    })
-
-    console.log('********highScoreArray**********')
-    console.log(highScoreArray)
-
-    for (let i = 0; i < highScoreArray.length; i++) {
-        console.log('i for loop, name: ' + highScoreArray[i].name + ', highScore: ' + highScoreArray[i].highScore)
-    }
-    console.log('*********highScoreArray*********')
-
-    store.commit('setHighScores', highScoreArray)
-})*/
-
-
-
-
-/*let highScoreArray = []*/
-let userProfile = [];
-/*let allHighScores = [];*/
 const store = new Vuex.Store({
     state: {
         userProfile: {},
@@ -101,12 +72,13 @@ const store = new Vuex.Store({
             // fetch user profile
             userProfile = await fb.usersCollection.doc(user.uid).get()
 
-            /*console.log('********fetchUserProfile**********')
-            console.log(userProfile.data().name + ' highScore from db: ' + userProfile.data().highScore)
-            console.log('*********fetchUserProfile*********')*/
-
             // set user profile in state
             commit('setUserProfile', userProfile.data())
+
+            localStorage.setItem(
+                'ActivePlayerLevel', userProfile.data().level
+            )
+            console.log('dbUserLevel ' + userProfile.data().level)
 
             // change route to dashboard
             if (router.currentRoute.path === '/login') {
@@ -120,20 +92,10 @@ const store = new Vuex.Store({
             /*fb. getInstance().clearLocalCache()*/
             localStorage.clear()
 
-            /*var dbRef = fb.usersCollection.doc()  database().ref("users");
-
-            dbRef.orderByChild("highScore").on("child_added", snap => {
-                console.log(snap.val());
-            });*/
-
             await fb.usersCollection.orderBy('highScore', 'desc')
                 .get()
                 .then((querySnapshot) => {
 
-
-
-           /* fb.usersCollection.orderBy('highScore', 'desc').onSnapshot(snapshot => {*/
-                /*let highScoreArray = []*/
                 let highScores = [];
 
                 querySnapshot.forEach(doc => {
@@ -144,7 +106,6 @@ const store = new Vuex.Store({
                 })
 
                 console.log('********fetchAllHighScores**********')
-                /*console.log(highScores)*/
 
                 for (let i = 0; i < highScores.length; i++) {
                     console.log(i + ' i for loop, name: ' + highScores[i].name + ', highScore: ' + highScores[i].highScore + ' highScores.length: ' + highScores.length)
@@ -166,7 +127,6 @@ const store = new Vuex.Store({
             commit('setUserProfile', {})
 
             // redirect to login view
-            /*router.push('/login')*/
             location.reload()
         },
         // eslint-disable-next-line no-unused-vars
@@ -205,7 +165,7 @@ const store = new Vuex.Store({
 
             let dbHighScore = userProfile.data().highScore;
             let score = user.highScore;
-            let dbUserLevel = userProfile.data().level;
+            dbUserLevel = userProfile.data().level;
             /*let level = user.dbUserLevel;*/
             console.log('dbUserLevel: ' + dbUserLevel)
             if (score > dbHighScore) {
@@ -220,7 +180,7 @@ const store = new Vuex.Store({
                 dispatch('fetchUserProfile', { uid: userId })
             }
 
-            if (score === 1) {
+            if (score === 10) {
                 console.log('i if-sats i updateProfile 1')
                 dbUserLevel++
                 console.log('dbUserLevel: ' + dbUserLevel)
@@ -231,29 +191,11 @@ const store = new Vuex.Store({
                 await fb.usersCollection.doc(userId).update({
                     level: dbUserLevel
                 })
-                console.log('i if-sats i updateProfile 3')
-
 
                 dispatch('fetchUserProfile', { uid: userId })
-                /*store.commit('setUserLevels', dbUserLevel)*/
+
             }
 
-
-            /*// update all posts by user
-            const postDocs = await fb.postsCollection.where('userId', '==', userId).get()
-            postDocs.forEach(doc => {
-                fb.postsCollection.doc(doc.id).update({
-                    userName: user.name
-                })
-            })
-
-            // update all comments by user
-            const commentDocs = await fb.commentsCollection.where('userId', '==', userId).get()
-            commentDocs.forEach(doc => {
-                fb.commentsCollection.doc(doc.id).update({
-                    userName: user.name
-                })
-            })*/
         }
     }
 })
