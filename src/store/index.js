@@ -229,7 +229,7 @@ const store = new Vuex.Store({
                 // update user object
                 // eslint-disable-next-line no-unused-vars
                 await fb.usersCollection.doc(userId).update({
-                    level: user.dbUserLevel
+                    level: dbUserLevel
                 })
                 console.log('i if-sats i updateProfile 3')
 
