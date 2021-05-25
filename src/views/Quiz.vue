@@ -21,7 +21,7 @@
       <button type="button" @click="submit">check</button>
     </form>
 
-    <button type="button" @click="writeUserData">writeUserData</button>
+<!--    <button type="button" @click="writeUserData">writeUserData</button>-->
 
     <p>score: {{ score }}</p>
 
@@ -37,7 +37,7 @@
 </template>
 
 <script>
-import firebase from "firebase";
+/*import firebase from "firebase";*/
 import * as fb from "@/firebase";
 /*import * as userProfile from "core-js";*/
 
@@ -121,14 +121,14 @@ export default {
         this.question = { ...questions[this.questionIndex] };
       }
     },
-    writeUserData(userId, name, email, highScore) {
+    /*writeUserData(userId, name, email, highScore) {
       firebase.database().ref('users/'
           + userId).set({
         username: name,
         email: email,
         highScore : highScore
       });
-    },
+    },*/
     restart() {
       this.question = this.questions[0];
       this.answer = "";

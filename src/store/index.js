@@ -54,8 +54,8 @@ let userProfile = [];
 const store = new Vuex.Store({
     state: {
         userProfile: {},
-        posts: [],
-        highScores: []
+        posts: []/*,
+        highScores: []*/
     },
     mutations: {
         setUserProfile(state, val) {
@@ -69,6 +69,9 @@ const store = new Vuex.Store({
         },
         setHighScores(state, val) {
             state.highScores = val
+        },
+        setUserLevels(state, val) {
+            state.dbUserLevel = val
         }
     },
     actions: {
@@ -87,7 +90,8 @@ const store = new Vuex.Store({
             await fb.usersCollection.doc(user.uid).set({
                 name: form.name,
                 title: form.title,
-                highScore: 0
+                highScore: 0,
+                level: 1
             })
 
             // fetch user profile and set in state
@@ -153,14 +157,7 @@ const store = new Vuex.Store({
                 store.commit('setHighScores', highScores)
 
             })
-
         },
-
-
-
-
-
-
         async logout({ commit }) {
             // log user out
             await fb.auth.signOut()
@@ -208,17 +205,37 @@ const store = new Vuex.Store({
 
             let dbHighScore = userProfile.data().highScore;
             let score = user.highScore;
-
+            let dbUserLevel = userProfile.data().level;
+            /*let level = user.dbUserLevel;*/
+            console.log('dbUserLevel: ' + dbUserLevel)
             if (score > dbHighScore) {
                 const userId = fb.auth.currentUser.uid
 
                 // update user object
                 // eslint-disable-next-line no-unused-vars
-                const userRef = await fb.usersCollection.doc(userId).update({
+                await fb.usersCollection.doc(userId).update({
                     highScore: user.highScore
                 })
 
                 dispatch('fetchUserProfile', { uid: userId })
+            }
+
+            if (score === 1) {
+                console.log('i if-sats i updateProfile 1')
+                dbUserLevel++
+                console.log('dbUserLevel: ' + dbUserLevel)
+                const userId = fb.auth.currentUser.uid
+                console.log('i if-sats i updateProfile 2')
+                // update user object
+                // eslint-disable-next-line no-unused-vars
+                await fb.usersCollection.doc(userId).update({
+                    level: user.dbUserLevel
+                })
+                console.log('i if-sats i updateProfile 3')
+
+
+                dispatch('fetchUserProfile', { uid: userId })
+                /*store.commit('setUserLevels', dbUserLevel)*/
             }
 
 
