@@ -12,13 +12,13 @@
           <input type="radio" name="choice" v-model="answer" :value="c" />
           {{ c }}
         </div>
+        <button type="button" @click="submit">check</button>
       </div>
       <div v-else>
         <button type="button" @click="restart">restart</button>
-        <button type="button" @click="addHighScore()">addHighScore</button>
         <button type="button" @click="updateProfile()">updateProfile</button>
       </div>
-      <button type="button" @click="submit">check</button>
+
     </form>
 
     <p>score: {{ score }}</p>
