@@ -9,7 +9,7 @@ let dbUserLevel;
 let userProfile = [];
 
 // realtime firebase
-fb.postsCollection.orderBy('createdOn', 'desc').onSnapshot(snapshot => {
+/*fb.postsCollection.orderBy('createdOn', 'desc').onSnapshot(snapshot => {
     let postsArray = []
 
     snapshot.forEach(doc => {
@@ -20,7 +20,7 @@ fb.postsCollection.orderBy('createdOn', 'desc').onSnapshot(snapshot => {
     })
 
     store.commit('setPosts', postsArray)
-})
+})*/
 
 const store = new Vuex.Store({
     state: {
@@ -164,7 +164,10 @@ const store = new Vuex.Store({
         },
         async updateProfile({ dispatch }, user) {
 
-            let dbHighScore = userProfile.data().highScore;
+            console.log('***')
+            console.log(userProfile.data().highScore)
+            console.log('***')
+            let dbHighScore = await userProfile.data().highScore;
             let score = user.highScore;
             dbUserLevel = userProfile.data().level;
             /*let level = user.dbUserLevel;*/

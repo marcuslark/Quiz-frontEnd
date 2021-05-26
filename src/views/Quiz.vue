@@ -14,9 +14,10 @@
         </div>
         <button type="button" @click="submit">check</button>
       </div>
-      <div v-else>
+      <div v-else-if="questionIndex === questions.length">
         <button type="button" @click="restart">restart</button>
         <div v-html="updateProfile()"></div>
+<!--        <button type="button" @click="updateProfile()">updateProfile()</button>-->
       </div>
 
     </form>
@@ -141,9 +142,9 @@ export default {
           highScore: this.score !== '' ? this.score : this.userProfile.score
         })
 
-      setTimeout(() => {
+      /*setTimeout(() => {
         this.showSuccess = false
-      }, 2000)
+      }, 2000)*/
     },
 
     arrayShuffle(arr) {
