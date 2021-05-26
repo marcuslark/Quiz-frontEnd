@@ -16,7 +16,7 @@
       </div>
       <div v-else>
         <button type="button" @click="restart">restart</button>
-        <button type="button" @click="updateProfile()">updateProfile</button>
+        <div v-html="updateProfile()"></div>
       </div>
 
     </form>
