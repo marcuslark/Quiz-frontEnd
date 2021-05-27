@@ -42,6 +42,14 @@ const routes = [
       requiresAuth: true
     },
     component: () => import('../views/Highscore.vue')
+  },
+  {
+    path: '/myprofile',
+    name: 'MyProfile',
+    meta: {
+      requiresAuth: true,
+    },
+    component: () => import('../views/MyProfile.vue')
   }
 ]
 

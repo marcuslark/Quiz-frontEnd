@@ -6,37 +6,15 @@ import router from '../router/index'
 Vue.use(Vuex)
 
 let dbUserLevel;
-let userProfile = [];
 
-// realtime firebase
-/*fb.postsCollection.orderBy('createdOn', 'desc').onSnapshot(snapshot => {
-    let postsArray = []
-
-    snapshot.forEach(doc => {
-        let post = doc.data()
-        post.id = doc.id
-
-        postsArray.push(post)
-    })
-
-    store.commit('setPosts', postsArray)
-})*/
 
 const store = new Vuex.Store({
     state: {
-        userProfile: {},
-        posts: []/*,
-        highScores: []*/
+        userProfile: {}
     },
     mutations: {
         setUserProfile(state, val) {
             state.userProfile = val
-        },
-        setPerformingRequest(state, val) {
-            state.performingRequest = val
-        },
-        setPosts(state, val) {
-            state.posts = val
         },
         setHighScores(state, val) {
             state.highScores = val
@@ -69,29 +47,30 @@ const store = new Vuex.Store({
             dispatch('fetchUserProfile', user)
         },
         async fetchUserProfile({ commit }, user) {
-            localStorage.clear()
+
             // fetch user profile
-            userProfile = await fb.usersCollection.doc(user.uid).get()
+            this.userProfile = await fb.usersCollection.doc(user.uid).get()
 
             // set user profile in state
-            commit('setUserProfile', userProfile.data())
+            commit('setUserProfile', this.userProfile.data())
+
+            console.log('i fetchUserProfile, userProfile: ' + this.userProfile.data().level)
 
             localStorage.setItem(
-                'ActivePlayerLevel', userProfile.data().level
+                'ActivePlayerLevel', this.userProfile.data().level
             )
-            console.log('dbUserLevel ' + userProfile.data().level)
+
+            console.log('dbUserLevel ' + this.userProfile.data().level)
 
             // change route to dashboard
             if (router.currentRoute.path === '/login') {
                 router.push('/')
             }
         },
-
-
         async fetchAllHighScores() {
             console.log('fetchAllHighScores i store/index.js körs')
-            /*fb. getInstance().clearLocalCache()*/
-            localStorage.clear()
+            localStorage.removeItem(
+                'HighScores')
 
             await fb.usersCollection.orderBy('highScore', 'desc')
                 .get()
@@ -128,49 +107,17 @@ const store = new Vuex.Store({
             commit('setUserProfile', {})
 
             // redirect to login view
+            localStorage.clear()
             location.reload()
-        },
-        // eslint-disable-next-line no-unused-vars
-        async createPost({ state, commit }, post) {
-            // create post in firebase
-            await fb.postsCollection.add({
-                createdOn: new Date(),
-                content: post.content,
-                userId: fb.auth.currentUser.uid,
-                userName: state.userProfile.name,
-                comments: 0,
-                likes: 0
-            })
-        },
-        // eslint-disable-next-line no-unused-vars
-        async likePost ({ commit }, post) {
-            const userId = fb.auth.currentUser.uid
-            const docId = `${userId}_${post.id}`
-
-            // check if user has liked post
-            const doc = await fb.likesCollection.doc(docId).get()
-            if (doc.exists) { return }
-
-            // create post
-            await fb.likesCollection.doc(docId).set({
-                postId: post.id,
-                userId: userId
-            })
-
-            // update post likes count
-            fb.postsCollection.doc(post.id).update({
-                likes: post.likesCount + 1
-            })
         },
         async updateProfile({ dispatch }, user) {
 
             console.log('***')
-            console.log(userProfile.data().highScore)
+            console.log(this.userProfile.data().highScore)
             console.log('***')
-            let dbHighScore = await userProfile.data().highScore;
+            let dbHighScore = await this.userProfile.data().highScore;
             let score = user.highScore;
-            dbUserLevel = userProfile.data().level;
-            /*let level = user.dbUserLevel;*/
+            dbUserLevel = this.userProfile.data().level;
             console.log('dbUserLevel: ' + dbUserLevel)
             if (score > dbHighScore) {
                 const userId = fb.auth.currentUser.uid

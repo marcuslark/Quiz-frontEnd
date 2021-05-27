@@ -6,6 +6,7 @@
         <router-link v-if="!checkIfLoggedIn()" to="/login">Log In |</router-link>
         <router-link v-else to="/logout">Log Out |</router-link>
         <router-link to="/quiz">Quiz |</router-link>
+        <router-link v-if="checkIfLoggedIn()" to="/myprofile">My Profile |</router-link>
         <router-link to="/highscore">High scores</router-link>
       </div>
     </div>

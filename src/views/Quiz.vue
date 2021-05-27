@@ -1,8 +1,5 @@
 <template>
   <div>
-<!--    <div class="activePlayer">-->
-<!--      Player: {{ activePlayer }}-->
-<!--    </div>-->
     <form>
       <div v-if="questionIndex < questions.length">
         <img v-bind:src="question.img" class="img">
@@ -17,7 +14,6 @@
       <div v-else-if="questionIndex === questions.length">
         <button type="button" @click="restart">restart</button>
         <div v-html="updateProfile()"></div>
-<!--        <button type="button" @click="updateProfile()">updateProfile()</button>-->
       </div>
 
     </form>
