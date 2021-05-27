@@ -3,7 +3,7 @@
     <header>
     </header>
 
-    <img class="home-img" alt="City Quiz" src="../assets/city-quiz.jpg">
+    <v-img class="home-img" alt="City Quiz" src="../assets/city-quiz.jpg"></v-img>
 
   </div>
 </template>
