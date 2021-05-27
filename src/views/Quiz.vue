@@ -1,13 +1,29 @@
 <template>
+
+  <v-app id="inspire">
+    <v-container>
+      <v-row>
+        <v-col  >
+    <v-card :loading="loading" class="mx-auto my-12" max-width="600">
   <div>
     <div class="activePlayer">
-      Player: {{ activePlayer }}
     </div>
     <form>
       <div v-if="questionIndex < questions.length">
-        <img v-bind:src="question.img" class="img">
+        <v-img
+            v-bind:src="question.img"
+            max-height="400"
+            max-width="600"
+        ></v-img>
         <p></p>
-        <label>{{ question.question }}</label>
+        <v-flex>
+              <p class="text-wrap">
+                {{ question.question }}
+              </p>
+        </v-flex>
+
+        <v-divider class="mx-4"></v-divider>
+
         <div v-for="c of question.choices" :key="c">
           <input type="radio" name="choice" v-model="answer" :value="c" />
           {{ c }}
@@ -21,8 +37,6 @@
       <button type="button" @click="submit">check</button>
     </form>
 
-    <button type="button" @click="writeUserData">writeUserData</button>
-
     <p>score: {{ score }}</p>
 
     <div v-if="correctBool === true" class="rightAnswer">
@@ -34,6 +48,11 @@
     </div>
 
   </div>
+    </v-card>
+        </v-col>
+      </v-row>
+    </v-container>
+  </v-app>
 </template>
 
 <script>
@@ -164,35 +183,12 @@ export default {
       }
       return arr;
     },
-    /*async putData(url = '') {
-
-      localStorage.setItem('highScore', this.score)
-      console.log('LOCAL STORAGE : ' + localStorage.getItem('highScore'))
-
-      await fetch(url, {
-        method: 'PUT', // *GET, POST, PUT, DELETE, etc.
-        mode: 'cors', // no-cors, *cors, same-origin
-        cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
-        credentials: 'same-origin', // include, *same-origin, omit
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        redirect: 'follow', // manual, *follow, error
-        referrerPolicy: 'no-referrer', // no-referrer, *client
-        body: JSON.stringify({userName: localStorage.getItem('activePlayer'), highScore: localStorage.getItem('highScore')}) // body data type must match "Content-Type" header
-      });
-
-      localStorage.clear();
-      //indexedDB.clear();
-      //return response.json();
-      location.reload();
-  }*/
  }
 }
 
 </script>
 
-<style scoped>
+<!--<style scoped>
 .question-data {
   display: flex;
   align-items: center;
