@@ -9,11 +9,11 @@
       </v-toolbar-title>
       <v-spacer></v-spacer>
 
-        <v-btn color="orange" to="/">Home |</v-btn>
-        <v-btn color="orange" v-if="!checkIfLoggedIn()" to="/login">Log In |</v-btn>
-        <v-btn color="orange" v-if="checkIfLoggedIn()" to="/logout">Log Out |</v-btn>
-        <v-btn color="orange" to="/quiz">Quiz |</v-btn>
-        <v-btn color="orange" v-if="checkIfLoggedIn()" to="/myprofile">My Profile |</v-btn>
+        <v-btn color="orange" to="/">Home</v-btn>
+        <v-btn color="orange" v-if="!checkIfLoggedIn()" to="/login">Log In</v-btn>
+        <v-btn color="orange" v-if="checkIfLoggedIn()" to="/logout">Log Out</v-btn>
+        <v-btn color="orange" to="/quiz">Quiz</v-btn>
+        <v-btn color="orange" v-if="checkIfLoggedIn()" to="/myprofile">My Profile</v-btn>
         <v-btn color="orange" to="/highscore">High scores</v-btn>
 
     </v-toolbar>
