@@ -30,6 +30,7 @@ const store = new Vuex.Store({
 
             // fetch user profile and set in state
             dispatch('fetchUserProfile', user)
+            location.reload()
         },
         async signup({ dispatch }, form) {
             // sign user up
