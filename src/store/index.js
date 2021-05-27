@@ -5,34 +5,22 @@ import router from '../router/index'
 
 Vue.use(Vuex)
 
-// realtime firebase
-fb.postsCollection.orderBy('createdOn', 'desc').onSnapshot(snapshot => {
-    let postsArray = []
+let dbUserLevel;
 
-    snapshot.forEach(doc => {
-        let post = doc.data()
-        post.id = doc.id
-
-        postsArray.push(post)
-    })
-
-    store.commit('setPosts', postsArray)
-})
 
 const store = new Vuex.Store({
     state: {
-        userProfile: {},
-        posts: []
+        userProfile: {}
     },
     mutations: {
         setUserProfile(state, val) {
             state.userProfile = val
         },
-        setPerformingRequest(state, val) {
-            state.performingRequest = val
+        setHighScores(state, val) {
+            state.highScores = val
         },
-        setPosts(state, val) {
-            state.posts = val
+        setUserLevels(state, val) {
+            state.dbUserLevel = val
         }
     },
     actions: {
@@ -51,23 +39,65 @@ const store = new Vuex.Store({
             await fb.usersCollection.doc(user.uid).set({
                 name: form.name,
                 title: form.title,
-                highScore: 0
+                highScore: 0,
+                level: 1
             })
 
             // fetch user profile and set in state
             dispatch('fetchUserProfile', user)
         },
         async fetchUserProfile({ commit }, user) {
+
             // fetch user profile
-            const userProfile = await fb.usersCollection.doc(user.uid).get()
+            this.userProfile = await fb.usersCollection.doc(user.uid).get()
 
             // set user profile in state
-            commit('setUserProfile', userProfile.data())
+            commit('setUserProfile', this.userProfile.data())
+
+            console.log('i fetchUserProfile, userProfile: ' + this.userProfile.data().level)
+
+            localStorage.setItem(
+                'ActivePlayerLevel', this.userProfile.data().level
+            )
+
+            console.log('dbUserLevel ' + this.userProfile.data().level)
 
             // change route to dashboard
             if (router.currentRoute.path === '/login') {
                 router.push('/')
             }
+        },
+        async fetchAllHighScores() {
+            console.log('fetchAllHighScores i store/index.js körs')
+            localStorage.removeItem(
+                'HighScores')
+
+            await fb.usersCollection.orderBy('highScore', 'desc')
+                .get()
+                .then((querySnapshot) => {
+
+                let highScores = [];
+
+                querySnapshot.forEach(doc => {
+                    let highScore = doc.data()
+                    highScore.id = doc.id
+
+                    highScores.push(highScore)
+                })
+
+                console.log('********fetchAllHighScores**********')
+
+                for (let i = 0; i < highScores.length; i++) {
+                    console.log(i + ' i for loop, name: ' + highScores[i].name + ', highScore: ' + highScores[i].highScore + ' highScores.length: ' + highScores.length)
+                    localStorage.setItem(
+                        'HighScores', localStorage.getItem('HighScores') + ',' + highScores[i].name + ' ' + highScores[i].highScore
+                    )
+                }
+                console.log('*********fetchAllHighScores*********')
+
+                store.commit('setHighScores', highScores)
+
+            })
         },
         async logout({ commit }) {
             // log user out
@@ -77,70 +107,46 @@ const store = new Vuex.Store({
             commit('setUserProfile', {})
 
             // redirect to login view
-            /*router.push('/login')*/
+            localStorage.clear()
             location.reload()
         },
-        // eslint-disable-next-line no-unused-vars
-        async createPost({ state, commit }, post) {
-            // create post in firebase
-            await fb.postsCollection.add({
-                createdOn: new Date(),
-                content: post.content,
-                userId: fb.auth.currentUser.uid,
-                userName: state.userProfile.name,
-                comments: 0,
-                likes: 0
-            })
-        },
-        // eslint-disable-next-line no-unused-vars
-        async likePost ({ commit }, post) {
-            const userId = fb.auth.currentUser.uid
-            const docId = `${userId}_${post.id}`
-
-            // check if user has liked post
-            const doc = await fb.likesCollection.doc(docId).get()
-            if (doc.exists) { return }
-
-            // create post
-            await fb.likesCollection.doc(docId).set({
-                postId: post.id,
-                userId: userId
-            })
-
-            // update post likes count
-            fb.postsCollection.doc(post.id).update({
-                likes: post.likesCount + 1
-            })
-        },
         async updateProfile({ dispatch }, user) {
-            console.log('updateProfile körs i index 1')
-            const userId = fb.auth.currentUser.uid
-            console.log('updateProfile körs i index 2')
-            // update user object
-            // eslint-disable-next-line no-unused-vars
-            const userRef = await fb.usersCollection.doc(userId).update({
-                name: user.name,
-                title: user.title,
-                highScore: user.highScore
-            })
-            console.log('updateProfile körs i index 3')
-            dispatch('fetchUserProfile', { uid: userId })
 
-            // update all posts by user
-            const postDocs = await fb.postsCollection.where('userId', '==', userId).get()
-            postDocs.forEach(doc => {
-                fb.postsCollection.doc(doc.id).update({
-                    userName: user.name
-                })
-            })
+            console.log('***')
+            console.log(this.userProfile.data().highScore)
+            console.log('***')
+            let dbHighScore = await this.userProfile.data().highScore;
+            let score = user.highScore;
+            dbUserLevel = this.userProfile.data().level;
+            console.log('dbUserLevel: ' + dbUserLevel)
+            if (score > dbHighScore) {
+                const userId = fb.auth.currentUser.uid
 
-            // update all comments by user
-            const commentDocs = await fb.commentsCollection.where('userId', '==', userId).get()
-            commentDocs.forEach(doc => {
-                fb.commentsCollection.doc(doc.id).update({
-                    userName: user.name
+                // update user object
+                // eslint-disable-next-line no-unused-vars
+                await fb.usersCollection.doc(userId).update({
+                    highScore: user.highScore
                 })
-            })
+
+                dispatch('fetchUserProfile', { uid: userId })
+            }
+
+            if (score === 10) {
+                console.log('i if-sats i updateProfile 1')
+                dbUserLevel++
+                console.log('dbUserLevel: ' + dbUserLevel)
+                const userId = fb.auth.currentUser.uid
+                console.log('i if-sats i updateProfile 2')
+                // update user object
+                // eslint-disable-next-line no-unused-vars
+                await fb.usersCollection.doc(userId).update({
+                    level: dbUserLevel
+                })
+
+                dispatch('fetchUserProfile', { uid: userId })
+
+            }
+
         }
     }
 })

@@ -28,13 +28,13 @@
           <input type="radio" name="choice" v-model="answer" :value="c" />
           {{ c }}
         </div>
+        <button type="button" @click="submit">check</button>
       </div>
-      <div v-else>
+      <div v-else-if="questionIndex === questions.length">
         <button type="button" @click="restart">restart</button>
-        <button type="button" @click="addHighScore()">addHighScore</button>
-        <button type="button" @click="updateProfile()">updateProfile</button>
+        <div v-html="updateProfile()"></div>
       </div>
-      <button type="button" @click="submit">check</button>
+
     </form>
 
     <p>score: {{ score }}</p>
@@ -56,14 +56,23 @@
 </template>
 
 <script>
-import firebase from "firebase";
 import * as fb from "@/firebase";
+let jsonFile = '';
 
 export default {
   name: "quiz",
 
   mounted() {
-    fetch('data/questions.json')
+    this.activeLevel = localStorage.getItem('ActivePlayerLevel')
+    if (this.activeLevel < 2) {
+      jsonFile = 'data/questions.json'
+      console.log("Lätt "  + this.activeLevel)
+    }
+    else{
+      jsonFile = 'data/svar.json'
+      console.log("Svår "  + this.activeLevel)
+    }
+    fetch(jsonFile)
     .then((response) => {
       return response.json()
     })
@@ -83,7 +92,6 @@ export default {
           data.questions[randomIndex] = temporaryValue;
 
           this.answerChoices = data.questions[currentIndex].choices
-          console.log('NOT Shuffled = ' + this.answerChoices)
 
           let newPos;
           let temp;
@@ -93,13 +101,10 @@ export default {
             this.answerChoices[i] = this.answerChoices[newPos];
             this.answerChoices[newPos] = temp;
           }
-          console.log('Shuffled =  ' + this.answerChoices)
         }
 
-      console.log(data.questions);
       this.question = data.questions[0]
       this.questions = data.questions;
-      console.log('this.questions = ' + this.questions[0].question);
 
     })
   },
@@ -110,11 +115,12 @@ export default {
       questionIndex: 10,
       question: '',
       answer: "",
-      activePlayer: localStorage.getItem('activePlayer'),
-      dbHighScoreActivePlayer: localStorage.getItem('dbHighScoreActivePlayer'),
+      //activePlayer: localStorage.getItem('activePlayer'),
+      //dbHighScoreActivePlayer: localStorage.getItem('dbHighScoreActivePlayer'),
       correct: "",
       correctBool: '',
-      answerChoices: []
+      answerChoices: [],
+      activeLevel: 0
     }
   },
   methods: {
@@ -139,14 +145,6 @@ export default {
         this.question = { ...questions[this.questionIndex] };
       }
     },
-    writeUserData(userId, name, email, highScore) {
-      firebase.database().ref('users/'
-          + userId).set({
-        username: name,
-        email: email,
-        highScore : highScore
-      });
-    },
     restart() {
       this.question = this.questions[0];
       this.answer = "";
@@ -157,21 +155,15 @@ export default {
       /*console.log(this.$store.fb.auth.currentUser.highScore)*/
       console.log('score: ' + this.score)
       console.log('userId: ' + fb.auth.currentUser.uid)
-      /*console.log('highScore: ' + fb.auth.currentUser.uid.user.highScore)*/
 
         console.log('updateProfile körs')
+
         this.$store.dispatch('updateProfile', {
-          /*highScore: this.score*/
+          highScore: this.score !== '' ? this.score : this.userProfile.score
         })
 
-
     },
-    /*addHighScore() {
-      if (this.score > this.dbHighScoreActivePlayer) {
-        this.putData('http://127.0.0.1:3000/api/users')
-        console.log('this.putData() triggered')
-      }
-    },*/
+
     arrayShuffle(arr) {
       let newPos;
       let temp;

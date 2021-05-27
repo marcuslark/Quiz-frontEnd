@@ -87,9 +87,6 @@ export default {
   },
 
   methods: {
-    changeUserState: function (newUserState) {
-      this.userState = newUserState
-    },
     login() {
       this.$store.dispatch('login', {
         email: this.loginForm.email,
@@ -105,7 +102,6 @@ export default {
         highScore: 0
       })
     },
-
     toggleForm() {
       this.showLoginForm = !this.showLoginForm
     },
