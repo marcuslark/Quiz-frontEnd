@@ -2,7 +2,7 @@
 <template>
 
   <nav>
-    <v-toolbar app color="indigo">
+    <v-toolbar color="indigo">
       <v-toolbar-title class="text-uppercase black&#45;&#45;text">
         <span class="font-weight-bold">City </span>
         <span>Quiz</span>

@@ -4,7 +4,8 @@
     <v-container>
       <v-row>
         <v-col  >
-    <v-card :loading="loading" class="mx-auto my-12" max-width="600">
+<!--    <v-card :loading="loading" class="mx-auto my-12" max-width="600">-->
+        <v-card class="mx-auto my-12" max-width="600">
   <div>
     <div class="activePlayer">
     </div>
@@ -121,6 +122,8 @@ export default {
   },
   data() {
     return {
+      // loading: '',
+      c: '',
       radios: '',
       questions: [],
       score: 0,
