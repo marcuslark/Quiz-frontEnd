@@ -24,11 +24,22 @@
 
         <v-divider class="mx-4"></v-divider>
 
-        <div v-for="c of question.choices" :key="c">
-          <input type="radio" name="choice" v-model="answer" :value="c" />
-          {{ c }}
-        </div>
-        <button type="button" @click="submit">check</button>
+<!--        <div v-for="c of question.choices" :key="c">-->
+<!--          <input type="radio" name="choice" v-model="answer" :value="c" />-->
+<!--            {{ c }}-->
+<!--        </div>-->
+
+        <v-radio-group v-model="answer" :value="c">
+          <v-radio
+              color="blue"
+              v-for="c of question.choices"
+              :key="c"
+              :label="`${c}`"
+              :value="c"
+          ></v-radio>
+        </v-radio-group>
+
+        <v-btn color="blue" type="button" @click="submit">check</v-btn>
       </div>
       <div v-else-if="questionIndex === questions.length">
         <button type="button" @click="restart">restart</button>
@@ -110,6 +121,7 @@ export default {
   },
   data() {
     return {
+      radios: '',
       questions: [],
       score: 0,
       questionIndex: 10,
@@ -126,6 +138,8 @@ export default {
   methods: {
     submit() {
       const { answer, question, questions, questionIndex } = this;
+      console.log('------------question.rightAnswer: ' + question.rightAnswer)
+      console.log('------------answer: ' + answer)
       if (answer === question.rightAnswer) {
         this.score++;
         this.correctBool = true;
