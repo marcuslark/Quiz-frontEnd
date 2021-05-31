@@ -49,12 +49,14 @@ import 'firebase/firestore'
      name: 'Navbar',
      drawer: false,
      linksLogin: [
+       { text: '', route: ''},
        { text: 'Home', route: '/'},
        { text: 'Log In', route: '/login'},
        { text: 'Quiz', route: '/quiz'},
        { text: 'High scores', route: '/highscore'},
      ],
      linksLogout: [
+       { text: '', route: ''},
        { text: 'Home', route: '/'},
        { text: 'Log Out', route: '/logout'},
        { text: 'Quiz', route: '/quiz'},
