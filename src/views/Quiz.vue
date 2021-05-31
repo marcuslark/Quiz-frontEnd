@@ -40,10 +40,13 @@
           ></v-radio>
         </v-radio-group>
 
-        <v-btn color="blue" type="button" @click="submit">check</v-btn>
+        <v-btn class="ma-2 white--text" color="blue" elevation="2" @click="submit">check</v-btn>
       </div>
       <div v-else-if="questionIndex === questions.length">
-        <button type="button" @click="restart">restart</button>
+<!--        <v-btn class="ma-2 white--text" color="success" elevation="2" @click="restart">restart</v-btn>-->
+        <v-btn class="ma-2 white--text" tile outlined color="success" elevation="2" @click="restart">
+          <v-icon left>mdi-cached</v-icon> Restart
+        </v-btn>
         <div v-html="updateProfile()"></div>
       </div>
 
@@ -52,10 +55,10 @@
     <p>score: {{ score }}</p>
 
     <div v-if="correctBool === true" class="rightAnswer">
-    <p>{{"Right Answer!"}}</p>
+    <v-chip color = "green" outlined>{{"Right Answer!"}}</v-chip>
     </div>
     <div v-else-if="correctBool === false" class="wrongAnswer">
-    <p> {{"Wrong Answer!"}} </p>
+    <v-chip color = "red" outlined> {{"Wrong Answer!"}} </v-chip>
       {{correct}}
     </div>
 
