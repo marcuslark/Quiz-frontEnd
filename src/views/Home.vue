@@ -2,9 +2,8 @@
   <div class="home">
     <header>
     </header>
-
     <v-img class="home-img" alt="City Quiz" src="../assets/city-quiz.jpg"></v-img>
-
+    <button @click="redirect()" class="btn-start">Press Here To Continue</button>
   </div>
 </template>
 
@@ -23,17 +22,32 @@ export default {
   },
 
   methods: {
-    topThreeHighScores: function () {
-
+    redirect() {
+      this.$router.push('Quiz')
     },
   },
-  components: {
-  }
 }
 </script>
 
 
 <style scoped>
+.btn-start {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  background-color: blue; /* Green background */
+  border: 1px solid green; /* Green border */
+  color: white; /* White text */
+  padding: 10px 24px; /* Some padding */
+  cursor: pointer; /* Pointer/hand icon */
+}
+.home-img {
+  max-width: 60%;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
 li {
   list-style: none;
 }
