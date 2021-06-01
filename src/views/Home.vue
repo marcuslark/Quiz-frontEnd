@@ -19,6 +19,9 @@ export default {
   methods: {
     redirect() {
       this.$router.push('Quiz')
+      .catch(error => {
+        console.info(error)
+      })
     },
   },
 }
