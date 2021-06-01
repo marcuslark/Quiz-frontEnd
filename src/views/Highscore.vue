@@ -1,11 +1,19 @@
 <template>
-  <div>
-    <h1>High score Top 10</h1>
-    <ol>
-      <li v-for="highScore in highScores" v-bind:key="highScore"> {{ highScore }} </li>
-    </ol>
-  </div>
+  <v-app>
+    <v-col cols="12">
+      <v-card rounded class="mx-auto mt-6" max-width="400">
+        <v-list color="orange lighten-1" >
+        <h1 class="text-center">High score Top 10</h1>
+          <ol class="center">
+          <li v-for="highScore in highScores" v-bind:key="highScore"> {{ highScore }} </li>
+          </ol>
+        </v-list>
+      </v-card>
+     </v-col>
+
+  </v-app>
 </template>
+
 
 <script>
 
@@ -40,4 +48,26 @@ export default {
 
 <style scoped>
 
+ol{
+  font-size: 25px;
+  margin: 40px;
+  line-height: 50px;
+}
+.center
+{
+  list-style-position: inside;
+}
+
+@media screen and (min-width: 1200px){
+
+  ol{
+    font-size: 35px;
+    margin: 40px;
+    line-height: 65px;
+  }
+  .center
+  {
+    list-style-position: inside;
+  }
+}
 </style>
