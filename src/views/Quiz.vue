@@ -4,11 +4,11 @@
     <v-container>
       <v-row>
         <v-col  >
-<!--    <v-card :loading="loading" class="mx-auto my-12" max-width="600">-->
         <v-card class="mx-auto my-12" max-width="600">
   <div>
-    <div class="activePlayer">
-    </div>
+    <v-chip v-if="difficulty === 'Difficulty: Easy'" color="green" text-color="white"> {{ difficulty }} </v-chip>
+    <v-chip v-else color="red" text-color="white"> {{ difficulty }} </v-chip>
+    <p> </p>
     <form>
       <div v-if="questionIndex < questions.length">
         <v-img
@@ -25,11 +25,6 @@
 
         <v-divider class="mx-4"></v-divider>
 
-<!--        <div v-for="c of question.choices" :key="c">-->
-<!--          <input type="radio" name="choice" v-model="answer" :value="c" />-->
-<!--            {{ c }}-->
-<!--        </div>-->
-
         <v-radio-group v-model="answer" :value="c">
           <v-radio
               color="blue"
@@ -43,7 +38,6 @@
         <v-btn class="ma-2 white--text" color="blue" elevation="2" @click="submit">check</v-btn>
       </div>
       <div v-else-if="questionIndex === questions.length">
-<!--        <v-btn class="ma-2 white--text" color="success" elevation="2" @click="restart">restart</v-btn>-->
         <v-btn class="ma-2 white--text" tile outlined color="success" elevation="2" @click="restart">
           <v-icon left>mdi-cached</v-icon> Restart
         </v-btn>
@@ -82,10 +76,12 @@ export default {
     if (this.activeLevel < 2) {
       jsonFile = 'data/questions.json'
       console.log("Lätt "  + this.activeLevel)
+      this.difficulty = 'Difficulty: Easy'
     }
     else{
       jsonFile = 'data/svar.json'
       console.log("Svår "  + this.activeLevel)
+      this.difficulty = 'Difficulty: Hard'
     }
     fetch(jsonFile)
     .then((response) => {
@@ -125,7 +121,6 @@ export default {
   },
   data() {
     return {
-      // loading: '',
       c: '',
       radios: '',
       questions: [],
@@ -133,12 +128,11 @@ export default {
       questionIndex: 10,
       question: '',
       answer: "",
-      //activePlayer: localStorage.getItem('activePlayer'),
-      //dbHighScoreActivePlayer: localStorage.getItem('dbHighScoreActivePlayer'),
       correct: "",
       correctBool: '',
       answerChoices: [],
-      activeLevel: 0
+      activeLevel: 0,
+      difficulty: ''
     }
   },
   methods: {
@@ -172,7 +166,6 @@ export default {
       this.score = 0;
     },
     updateProfile() {
-      /*console.log(this.$store.fb.auth.currentUser.highScore)*/
       console.log('score: ' + this.score)
       console.log('userId: ' + fb.auth.currentUser.uid)
 
