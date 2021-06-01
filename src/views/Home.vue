@@ -3,7 +3,9 @@
     <header>
     </header>
     <v-img class="home-img" alt="City Quiz" src="../assets/city-quiz.jpg"></v-img>
-    <button @click="redirect()" class="btn-start">Press Here To Continue</button>
+    <v-btn @click="redirect()"  class="ma-2 white--text" color="blue" elevation="2"
+    :style="{left: '50%', transform:'translateX(-50%)'}"
+    >Press Here To Continue</v-btn>
   </div>
 </template>
 
@@ -35,7 +37,7 @@ export default {
   display: block;
   margin-left: auto;
   margin-right: auto;
-  background-color: blue; /* Green background */
+  background-color: white; /* Green background */
   border: 1px solid green; /* Green border */
   color: white; /* White text */
   padding: 10px 24px; /* Some padding */
