@@ -19,7 +19,9 @@ export default {
   name: 'App',
   components: {Navbar},
   data: () => ({
-    drawer: true,
+    //
   }),
 };
+
+
 </script>
