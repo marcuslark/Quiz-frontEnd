@@ -113,15 +113,17 @@ const store = new Vuex.Store({
         },
         async updateProfile({ dispatch }, user) {
             const userId = fb.auth.currentUser.uid
-            console.log('***')
+            console.log('*** index AAAAAAAAAA')
             console.log(this.userProfile.data().highScore)
-            console.log('***')
+            console.log('*** index AAAAAAAAAA')
             let dbHighScore = await this.userProfile.data().highScore;
             let score = user.highScore;
+            console.log('index AAAAAAAAAA dbHighScore ' + dbHighScore)
+            console.log('index AAAAAAAAAA score ' + dbHighScore)
 
-            await fb.usersCollection.doc(userId).update({
-                level: dbUserLevel
-            })
+            // await fb.usersCollection.doc(userId).update({
+            //     level: dbUserLevel
+            // })
 
             dbUserLevel = this.userProfile.data().level;
             console.log('dbUserLevel: ' + dbUserLevel)
@@ -139,6 +141,21 @@ const store = new Vuex.Store({
             if (score === 10) {
                 console.log('i if-sats i updateProfile 1')
                 dbUserLevel++
+                console.log('dbUserLevel: ' + dbUserLevel)
+                console.log('i if-sats i updateProfile 2')
+                // update user object
+                // eslint-disable-next-line no-unused-vars
+                await fb.usersCollection.doc(userId).update({
+                    level: dbUserLevel
+                })
+
+                dispatch('fetchUserProfile', { uid: userId })
+
+            }
+
+            if (score === -1) {
+                console.log('i if-sats i updateProfile 1')
+                dbUserLevel--
                 console.log('dbUserLevel: ' + dbUserLevel)
                 console.log('i if-sats i updateProfile 2')
                 // update user object

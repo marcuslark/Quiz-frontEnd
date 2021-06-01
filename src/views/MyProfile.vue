@@ -26,7 +26,9 @@ export default {
   data() {
     return {
       activeLevel: 0,
-      name: 'Joakim'
+      name: fb.auth.currentUser.name,
+      score: 0,
+      highScore: 0,
     }
   },
   mounted() {
@@ -39,22 +41,16 @@ export default {
   },
   methods: {
     downgradeLevel() {
-      console.log('downgradeLevel() körs')
+      this.$store.dispatch('updateProfile', {
+        highScore: -1
+      })
       this.activeLevel--
-
-      this.$store.dispatch('updateProfile', {
-        level: this.activeLevel
-      })
-
     },
-    async upgradeLevel() {
-      console.log('upgradeLevel() körs')
-      this.activeLevel++
-
+    upgradeLevel() {
       this.$store.dispatch('updateProfile', {
-        level: this.activeLevel
+        highScore: 10
       })
-
+      this.activeLevel++
     }
   }
 }
