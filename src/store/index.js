@@ -112,16 +112,20 @@ const store = new Vuex.Store({
             location.reload()
         },
         async updateProfile({ dispatch }, user) {
-
+            const userId = fb.auth.currentUser.uid
             console.log('***')
             console.log(this.userProfile.data().highScore)
             console.log('***')
             let dbHighScore = await this.userProfile.data().highScore;
             let score = user.highScore;
+
+            await fb.usersCollection.doc(userId).update({
+                level: dbUserLevel
+            })
+
             dbUserLevel = this.userProfile.data().level;
             console.log('dbUserLevel: ' + dbUserLevel)
             if (score > dbHighScore) {
-                const userId = fb.auth.currentUser.uid
 
                 // update user object
                 // eslint-disable-next-line no-unused-vars
@@ -136,7 +140,6 @@ const store = new Vuex.Store({
                 console.log('i if-sats i updateProfile 1')
                 dbUserLevel++
                 console.log('dbUserLevel: ' + dbUserLevel)
-                const userId = fb.auth.currentUser.uid
                 console.log('i if-sats i updateProfile 2')
                 // update user object
                 // eslint-disable-next-line no-unused-vars
@@ -148,7 +151,31 @@ const store = new Vuex.Store({
 
             }
 
-        }
+        },
+        /*async downgradeLevel({ dispatch }, user) {
+            const userId = fb.auth.currentUser.uid
+            console.log('***')
+            console.log('userId: ' + userId + ' in downgradeLevel()')
+            console.log('***')
+
+            await fb.usersCollection.doc(userId).update({
+                level: dbUserLevel
+            })
+
+            dispatch('fetchUserProfile', { uid: userId })
+        },
+        async upgradeLevel({ dispatch }) {
+            const userId = fb.auth.currentUser.uid
+            console.log('***')
+            console.log('userId: ' + userId + ' in upgradeLevel()')
+            console.log('***')
+
+            await fb.usersCollection.doc(userId).update({
+                level: dbUserLevel
+            })
+
+            dispatch('fetchUserProfile', { uid: userId })
+        }*/
     }
 })
 
