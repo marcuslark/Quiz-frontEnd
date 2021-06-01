@@ -92,6 +92,14 @@ export default {
         email: this.loginForm.email,
         password: this.loginForm.password
       })
+          .then((response) => {
+            alert('success')
+            console.log(response)
+          })
+          .catch((error) => {
+                alert('failure')
+                console.log(error)
+          })
     },
     signup() {
       this.$store.dispatch('signup', {
@@ -101,6 +109,14 @@ export default {
         title: this.signupForm.title,
         highScore: 0
       })
+      .then((response) => {
+        alert('success')
+        console.log(response)
+      })
+          .catch((error) => {
+            alert('failure')
+            console.log(error)
+          })
     },
     toggleForm() {
       this.showLoginForm = !this.showLoginForm
