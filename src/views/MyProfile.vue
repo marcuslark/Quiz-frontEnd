@@ -6,7 +6,7 @@
         <h1>My Profile</h1>
         <p>Your current level is based on how many times you have scored 10p</p>
         <p>Current level: {{ activeLevel }}</p>
-        <p>Your name: {{ name }}</p>
+        <p>Your name: {{ activeName }}</p>
         <p>Is the questions to hard or to easy?</p>
         <v-btn class="ma-2 white--text" color="blue" elevation="2" @click="downgradeLevel">Downgrade your level
           &#9660;
@@ -26,9 +26,9 @@ export default {
   data() {
     return {
       activeLevel: 0,
-      name: fb.auth.currentUser.name,
       score: 0,
       highScore: 0,
+      activeName: '',
     }
   },
   mounted() {
@@ -38,6 +38,7 @@ export default {
     this.activeLevel = localStorage.getItem('ActivePlayerLevel')
     console.log(this.activeLevel)
     console.log('*****ActivePlayerLevel*******')
+    this.activeName = localStorage.getItem('ActivePlayerName')
   },
   methods: {
     downgradeLevel() {

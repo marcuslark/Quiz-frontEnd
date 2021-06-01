@@ -61,6 +61,10 @@ const store = new Vuex.Store({
                 'ActivePlayerLevel', this.userProfile.data().level
             )
 
+            localStorage.setItem(
+                'ActivePlayerName', this.userProfile.data().name
+            )
+
             console.log('dbUserLevel ' + this.userProfile.data().level)
 
             // change route to dashboard
