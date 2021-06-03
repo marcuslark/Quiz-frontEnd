@@ -5,13 +5,6 @@ import 'firebase/firestore'
 
 // firebase init - add your own config here
 const firebaseConfig = {
-    // apiKey: '',
-    // authDomain: '',
-    // databaseURL: '',
-    // projectId: '',
-    // storageBucket: '',
-    // messagingSenderId: '',
-    // appId: ''
     apiKey: "AIzaSyBixx7o9SZPmetWcN5O__9gkzyUyreSpis",
     authDomain: "quiz-db87c.firebaseapp.com",
     projectId: "quiz-db87c",

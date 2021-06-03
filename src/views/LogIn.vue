@@ -97,7 +97,7 @@ export default {
             console.log(response)
           })
           .catch((error) => {
-                alert('failure')
+                alert('failure, wrong input')
                 console.log(error)
           })
     },
@@ -114,7 +114,7 @@ export default {
         console.log(response)
       })
           .catch((error) => {
-            alert('failure')
+            alert('failure, wrong input')
             console.log(error)
           })
     },

@@ -30,7 +30,7 @@ export default {
 
 <style scoped>
 .home-img {
-  max-width: 60%;
+  max-width: 80%;
   display: block;
   margin-left: auto;
   margin-right: auto;
