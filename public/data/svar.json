@@ -111,6 +111,34 @@
       "choices": ["Croatia", "Japan","Italy","Namibia"],
       "rightAnswer": "Italy",
       "img": "https://cdn2.wanderlust.co.uk/media/1067/q16-country-shape.jpg?anchor=center&mode=crop&width=800&height=480&format=auto&quality=90&rnd=132399034030000000"
+    },
+    {
+      "id": "17",
+      "question": "Africa is massive. How many countries are there in total?",
+      "choices": ["64", "58","62", "54"],
+      "rightAnswer": "54",
+      "img": "https://img2.thejournal.ie/question/7660/double/?width=610&version=25165"
+    },
+    {
+      "id": "18",
+      "question": "How was the Grand Canyon made?",
+      "choices": ["A large explosion left a long cavern which was the smoothed by wind erosion", "It was carved by the Colorado River","Humans carved it out as a traveling path", "It was an animal migration path, which humans further dug out with excavators"],
+      "rightAnswer": "It was carved by the Colorado River",
+      "img": "https://static0.thequizimages.com/wordpress/wp-content/uploads/2018/09/shutterstock_97706066_1.jpg?q=50&fit=crop&w=963&h=541&dpr=1.5"
+    },
+    {
+      "id": "19",
+      "question": "Russia is the world's largest landmass. How many times would Ireland fit in it?",
+      "choices": ["25","120", "250", "450"],
+      "rightAnswer": "250",
+      "img": "https://img2.thejournal.ie/question/7662/double/?width=610&version=25167"
+    },
+    {
+      "id": "20",
+      "question": "The map we all know is wrong. What's the name for the proposed version, which portrays things as they actually are?",
+      "choices": ["The Murray Map","The Peterson Projection", "The Carnegie Cartograph", "The Edmonds Illustration"],
+      "rightAnswer": "250",
+      "img": "https://img2.thejournal.ie/question/7661/double/?width=610&version=25166"
     }
   ]
 }

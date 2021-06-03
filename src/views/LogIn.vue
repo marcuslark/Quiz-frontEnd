@@ -22,7 +22,6 @@
           </div>
         </form>
 
-
         <form v-else @submit.prevent>
           <h1>Get Started</h1>
           <div>
@@ -51,7 +50,6 @@
     </section>
   </div>
 
-
 </template>
 
 <script>
@@ -61,19 +59,10 @@ export default {
   name: "LogIn",
   data() {
     return {
-      userState: 'default',
-      newUserName: '',
-      user: [],
-      formData: {
-        userName: ''
-      },
-      activePlayer: '',
-      dbHighScoreActivePlayer: '',
       loginForm: {
         email: '',
         password: ''
       },
-      // add signup form to data()
       signupForm: {
         name: '',
         title: '',

@@ -56,7 +56,7 @@ const store = new Vuex.Store({
             // set user profile in state
             commit('setUserProfile', this.userProfile.data())
 
-            console.log('i fetchUserProfile, userProfile: ' + this.userProfile.data().level)
+            console.log('i fetchUserProfile, name: ' + this.userProfile.data().name)
 
             localStorage.setItem(
                 'ActivePlayerLevel', this.userProfile.data().level
@@ -91,15 +91,11 @@ const store = new Vuex.Store({
                     highScores.push(highScore)
                 })
 
-                console.log('********fetchAllHighScores**********')
-
                 for (let i = 0; i < highScores.length; i++) {
-                    console.log(i + ' i for loop, name: ' + highScores[i].name + ', highScore: ' + highScores[i].highScore + ' highScores.length: ' + highScores.length)
                     localStorage.setItem(
                         'HighScores', localStorage.getItem('HighScores') + ',' + highScores[i].name + ' ' + highScores[i].highScore
                     )
                 }
-                console.log('*********fetchAllHighScores*********')
 
                 store.commit('setHighScores', highScores)
 
@@ -118,17 +114,9 @@ const store = new Vuex.Store({
         },
         async updateProfile({ dispatch }, user) {
             const userId = fb.auth.currentUser.uid
-            console.log('*** index AAAAAAAAAA')
-            console.log(this.userProfile.data().highScore)
-            console.log('*** index AAAAAAAAAA')
+            console.log('this.userProfile.data().highScore: ' + this.userProfile.data().highScore)
             let dbHighScore = await this.userProfile.data().highScore;
             let score = user.highScore;
-            console.log('index AAAAAAAAAA dbHighScore ' + dbHighScore)
-            console.log('index AAAAAAAAAA score ' + dbHighScore)
-
-            // await fb.usersCollection.doc(userId).update({
-            //     level: dbUserLevel
-            // })
 
             dbUserLevel = this.userProfile.data().level;
             console.log('dbUserLevel: ' + dbUserLevel)
@@ -144,10 +132,8 @@ const store = new Vuex.Store({
             }
 
             if (score === 10) {
-                console.log('i if-sats i updateProfile 1')
                 dbUserLevel++
-                console.log('dbUserLevel: ' + dbUserLevel)
-                console.log('i if-sats i updateProfile 2')
+                console.log('dbUserLevel if score === 10: ' + dbUserLevel)
                 // update user object
                 // eslint-disable-next-line no-unused-vars
                 await fb.usersCollection.doc(userId).update({
@@ -159,10 +145,8 @@ const store = new Vuex.Store({
             }
 
             if (score === -1) {
-                console.log('i if-sats i updateProfile 1')
                 dbUserLevel--
-                console.log('dbUserLevel: ' + dbUserLevel)
-                console.log('i if-sats i updateProfile 2')
+                console.log('dbUserLevel if score === -1: ' + dbUserLevel)
                 // update user object
                 // eslint-disable-next-line no-unused-vars
                 await fb.usersCollection.doc(userId).update({
@@ -172,32 +156,7 @@ const store = new Vuex.Store({
                 dispatch('fetchUserProfile', { uid: userId })
 
             }
-
         },
-        /*async downgradeLevel({ dispatch }, user) {
-            const userId = fb.auth.currentUser.uid
-            console.log('***')
-            console.log('userId: ' + userId + ' in downgradeLevel()')
-            console.log('***')
-
-            await fb.usersCollection.doc(userId).update({
-                level: dbUserLevel
-            })
-
-            dispatch('fetchUserProfile', { uid: userId })
-        },
-        async upgradeLevel({ dispatch }) {
-            const userId = fb.auth.currentUser.uid
-            console.log('***')
-            console.log('userId: ' + userId + ' in upgradeLevel()')
-            console.log('***')
-
-            await fb.usersCollection.doc(userId).update({
-                level: dbUserLevel
-            })
-
-            dispatch('fetchUserProfile', { uid: userId })
-        }*/
     }
 })
 

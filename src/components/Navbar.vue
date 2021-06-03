@@ -78,9 +78,7 @@ import 'firebase/firestore'
     },
 
     checkIfLoggedIn() {
-      console.log('*******************checkIfLoggedIn*******************')
       const auth = firebase.auth().currentUser
-      console.log('*******************auth******************* ' + auth)
       return !!auth;
     }
   }

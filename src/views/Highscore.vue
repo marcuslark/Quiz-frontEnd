@@ -10,7 +10,6 @@
         </v-list>
       </v-card>
      </v-col>
-
   </v-app>
 </template>
 
@@ -31,16 +30,11 @@ export default {
     await this.$store.dispatch('fetchAllHighScores', {
       users: this.users !== '' ? this.users : this.highScores
     })
-    console.log('*******mounted********')
-
     let localStorageList = localStorage.getItem('HighScores')
-    console.log(localStorageList)
+    // console.log(localStorageList) // for debuggning
 
     this.tempArray = localStorageList.split(',', 11)
-    console.log(this.tempArray)
     this.highScores = this.tempArray.splice(1)
-
-    console.log('*******mounted********')
   }
 
 }

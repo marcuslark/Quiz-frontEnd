@@ -34,10 +34,9 @@ export default {
   mounted() {
     console.log('i mounted, i MyProfile, userId: ' + fb.auth.currentUser.uid)
 
-    console.log('*****ActivePlayerLevel*******')
     this.activeLevel = localStorage.getItem('ActivePlayerLevel')
-    console.log(this.activeLevel)
-    console.log('*****ActivePlayerLevel*******')
+    console.log('Current level: ' + this.activeLevel)
+
     this.activeName = localStorage.getItem('ActivePlayerName')
   },
   methods: {

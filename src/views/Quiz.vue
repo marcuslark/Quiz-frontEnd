@@ -1,65 +1,63 @@
 <template>
-
   <v-app id="inspire">
     <v-container>
-      <v-row>
-        <v-col  >
-        <v-card class="mx-auto my-12" max-width="600">
-  <div>
-    <v-chip v-if="difficulty === 'Difficulty: Easy'" color="green" text-color="white"> {{ difficulty }} </v-chip>
-    <v-chip v-else color="red" text-color="white"> {{ difficulty }} </v-chip>
-    <p> </p>
-    <form>
-      <div v-if="questionIndex < questions.length">
-        <v-img
-            v-bind:src="question.img"
-            max-height="400"
-            max-width="600"
-        ></v-img>
-        <p></p>
-        <v-flex>
-              <p class="text-wrap">
-                {{ question.question }}
-              </p>
-        </v-flex>
+      <v-card class="mx-auto my-12" max-width="600">
+        <div>
+          <v-chip v-if="difficulty === 'Difficulty: Easy'" color="green" text-color="white">
+            {{ difficulty }}
+          </v-chip>
+          <v-chip v-else color="red" text-color="white"> {{ difficulty }}</v-chip>
+          <p></p>
+          <form>
+            <div v-if="questionIndex < questions.length">
+              <v-img
+                  v-bind:src="question.img"
+                  max-height="400"
+                  max-width="600"
+              ></v-img>
+              <p></p>
+              <v-flex>
+                <p class="text-wrap">
+                  {{ question.question }}
+                </p>
+              </v-flex>
 
-        <v-divider class="mx-4"></v-divider>
+              <v-divider class="mx-4"></v-divider>
 
-        <v-radio-group v-model="answer" :value="c">
-          <v-radio
-              color="blue"
-              v-for="c of question.choices"
-              :key="c"
-              :label="`${c}`"
-              :value="c"
-          ></v-radio>
-        </v-radio-group>
+              <v-radio-group v-model="answer" :value="c">
+                <v-radio
+                    color="blue"
+                    v-for="c of question.choices"
+                    :key="c"
+                    :label="`${c}`"
+                    :value="c"
+                ></v-radio>
+              </v-radio-group>
 
-        <v-btn class="ma-2 white--text" color="blue" elevation="2" @click="submit">check</v-btn>
-      </div>
-      <div v-else-if="questionIndex === questions.length">
-        <v-btn class="ma-2 white--text" tile outlined color="success" elevation="2" @click="restart">
-          <v-icon left>mdi-cached</v-icon> Restart
-        </v-btn>
-        <div v-html="updateProfile()"></div>
-      </div>
+              <v-btn class="ma-2 white--text" color="blue" elevation="2" @click="submit">check</v-btn>
+            </div>
+            <div v-else-if="questionIndex === questions.length">
+              <v-btn class="ma-2 white--text" tile outlined color="success" elevation="2" @click="restart">
+                <v-icon left>mdi-cached</v-icon>
+                Restart
+              </v-btn>
+              <div v-html="updateProfile()"></div>
+            </div>
 
-    </form>
+          </form>
 
-    <p>score: {{ score }}</p>
+          <p>score: {{ score }}</p>
 
-    <div v-if="correctBool === true" class="rightAnswer">
-    <v-chip color = "green" outlined>{{"Right Answer!"}}</v-chip>
-    </div>
-    <div v-else-if="correctBool === false" class="wrongAnswer">
-    <v-chip color = "red" outlined> {{"Wrong Answer!"}} </v-chip>
-      {{correct}}
-    </div>
+          <div v-if="correctBool === true" class="rightAnswer">
+            <v-chip color="green" outlined>{{ "Right Answer!" }}</v-chip>
+          </div>
+          <div v-else-if="correctBool === false" class="wrongAnswer">
+            <v-chip color="red" outlined> {{ "Wrong Answer!" }}</v-chip>
+            {{ correct }}
+          </div>
 
-  </div>
-    </v-card>
-        </v-col>
-      </v-row>
+        </div>
+      </v-card>
     </v-container>
   </v-app>
 </template>
@@ -90,14 +88,14 @@ export default {
     .then((data) => {
         let currentIndex = data.questions.length, temporaryValue, randomIndex;
         
-        // While there remain elements to shuffle...
+        // While there remain questions to shuffle...
         while (0 !== currentIndex) {
 
-          // Pick a remaining element...
+          // Pick a remaining question...
           randomIndex = Math.floor(Math.random() * currentIndex);
           currentIndex -= 1;
 
-          // And swap it with the current element.
+          // And swap it with the current question.
           temporaryValue = data.questions[currentIndex];
           data.questions[currentIndex] = data.questions[randomIndex];
           data.questions[randomIndex] = temporaryValue;
@@ -125,7 +123,7 @@ export default {
       radios: '',
       questions: [],
       score: 0,
-      questionIndex: 10,
+      questionIndex: 10, // Start on question 10, so it only shows the remaining 10
       question: '',
       answer: "",
       correct: "",
@@ -138,19 +136,18 @@ export default {
   methods: {
     submit() {
       const { answer, question, questions, questionIndex } = this;
-      console.log('------------question.rightAnswer: ' + question.rightAnswer)
-      console.log('------------answer: ' + answer)
+      console.log('answer: ' + answer)
       if (answer === question.rightAnswer) {
         this.score++;
         this.correctBool = true;
         this.correct = this.question.rightAnswer;
-        console.log(question.rightAnswer)
+        console.log('question.rightAnswer: ' + question.rightAnswer)
         console.log("Rätt svar");
       }
       else {
         this.correctBool = false;
         this.correct = this.question.rightAnswer;
-        console.log(question.rightAnswer)
+        console.log('question.rightAnswer: ' + question.rightAnswer)
         console.log("fel svar")
 
       }
@@ -176,77 +173,6 @@ export default {
         })
 
     },
-
-    arrayShuffle(arr) {
-      let newPos;
-      let temp;
-      for (let i = arr.length -1; i > 0; i--) {
-        newPos = Math.floor(Math.random() * (i + 1));
-        temp = arr[i];
-        arr[i] = arr[newPos];
-        arr[newPos] = temp;
-      }
-      return arr;
-    },
  }
 }
-
 </script>
-
-<!--<style scoped>
-.question-data {
-  display: flex;
-  align-items: center;
-  margin-top: 20px;
-  margin-left: 20px;
-  border-bottom: 2px solid #ccc;
-  padding: 20px;
-}
-
-.quest-icon {
-  flex-grow: 1;
-}
-
-.question-stats {
-  flex-grow: 8;
-  text-align: left;
-  padding-left: 20px;
-}
-
-.question-stats .location {
-  font-size: 30px;
-}
-
-.question-temp {
-  flex-grow: 1;
-  font-size: 35px;
-}
-
-img {
-  width: 70px;
-}
-
-button {
-  padding:10px;
-  background-color: #1aa832;
-  color: white;
-  border: 1px solid #ccc;
-}
-
-.rightAnswer{
-  color: #1aa832;
-}
-.wrongAnswer{
-  color: #E3342F;
-}
-
-.img{
-/*  max-width: 100%;*/
-/*  height: auto;*/
-height: 335px;
-width: 500px;
-position: center;
-}
-
-
-</style>-->
