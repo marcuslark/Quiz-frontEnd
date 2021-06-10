@@ -26,11 +26,11 @@
           <h1>Get Started</h1>
           <div>
             <label for="name">Name</label>
-            <input v-model.trim="signupForm.name" type="text" placeholder="Savvy Apps" id="name" />
+            <input v-model.trim="signupForm.name" type="text" placeholder="Name" id="name" />
           </div>
           <div>
-            <label for="title">Title</label>
-            <input v-model.trim="signupForm.title" type="text" placeholder="Company" id="title" />
+            <label for="title">School</label>
+            <input v-model.trim="signupForm.title" type="text" placeholder="School" id="title" />
           </div>
           <div>
             <label for="email2">Email</label>
